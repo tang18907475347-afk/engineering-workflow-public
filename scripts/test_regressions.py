@@ -29,6 +29,7 @@ ACTIVE_SKILLS = sorted([
     "product-reality",
     "skill-architecture",
     "test-readiness-review",
+    "work-retrospective",
 ])
 
 
@@ -324,7 +325,7 @@ class TestPluginPackaging(unittest.TestCase):
         self.assertNotIn(".codex-plugin/plugin.json", names)
         self.assertIn("skills/product-engineering/SKILL.md", names)
         self.assertEqual(
-            len([n for n in names if n.endswith("/SKILL.md")]), 8)
+            len([n for n in names if n.endswith("/SKILL.md")]), 9)
 
     def test_codex_package_contains_only_codex_manifest(self):
         _entries, names = self._build("codex")
@@ -334,7 +335,7 @@ class TestPluginPackaging(unittest.TestCase):
             "skills/skill-architecture/references/format-compression.md",
             names)
         self.assertEqual(
-            len([n for n in names if n.endswith("/SKILL.md")]), 8)
+            len([n for n in names if n.endswith("/SKILL.md")]), 9)
 
 
 if __name__ == "__main__":

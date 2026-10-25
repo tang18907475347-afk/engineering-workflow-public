@@ -49,8 +49,11 @@ Router 按用户真实动作选择能力，不按 URL 或单据类型机械路�
 | 处理 MR 上的云端 AI 评审意见 | `ai-code-review` | 评审意见是待验证发现；不自动合并或批准 |
 | 采集、分析、修复或回写缺陷单 | `bugfix` | 按用户点名的通道执行，走完即停 |
 | 审计已有 Skill / Plugin 的架构和责任分配 | `skill-architecture` | 独立能力，不接入 Router，需要直接点名 |
+| 复盘一个需求、一个任务或一段时间里的请求与实际工作，找出走偏与走反 | `work-retrospective` | 独立能力，不接入 Router，只在明确要求时使用；范围由你说 |
 
 `skill-architecture` 不会由 Router 自动派发。要使用它时，直接说「用 skill-architecture 审计……」或调用 `/skill-architecture`。
+
+`work-retrospective` 同样不会自动派发，也不会在任务收尾时自己跑。要使用它时，直接说「用 work-retrospective 复盘……」并说清范围：一个需求、一个任务、一个分支，或一段时间（上周、上个月、两个日期之间）。
 
 ## 4. 通用提示词技巧
 

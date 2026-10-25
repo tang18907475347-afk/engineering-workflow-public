@@ -25,7 +25,7 @@
 5. **如实汇报**：静态检查通过只能说明“没丢文本、没破坏已知消费者”，不能说明模型行为变好；没实测就写“未实测”。
 
 ## 4. 受保护的内容（未经用户明确决定，不改语义）
-- **Skill 的名称与边界**：现有 8 个 skill（`scripts/test_regressions.py` 会检查这个集合）。
+- **Skill 的名称与边界**：现有 9 个 skill（`scripts/test_regressions.py` 会检查这个集合）。
 - **三份共享契约的语义**（`shared/`）：决定状态与 Basis、Binding / Adjustable、证据的五个面（声明 / 实现 / 可达 / 可执行 / 体验）、工作区归属、业务上下文的准入规则。表达可以改进，语义不改；不要换成另一套词汇。
 - **机器或下游消费的格式**：bugfix 的档案格式、卡片协议与三文档状态机；ai-code-review 的 `review.json`、Decision Envelope、`proposalFingerprint`；`check_baseline.py` 校验的 product/ 结构；`plan.md` 的「给执行者」与「验收与保持」；`reality.md` 与 `context.md` 的结构。
 - **深度模式的规则**（`skills/product-reality/references/product/deep-mode.md` 及其引用的 reference）：使用频率低，但重要且复杂，不用 skill 单靠提示词很难做好、做标准。
@@ -72,3 +72,4 @@ python3 -m pytest skills/product-design/tests -q  # 需要 pytest
 | D13 | skill-architecture 补“模型相对性”：只有提案，待在独立来源审阅 |
 | D14 | 术语速查 `shared/glossary.md`：只做白话翻译，以契约为准；同步到 7 个业务 skill |
 | D16 | `review.html` 视图层重做：只改视觉与导航，决策语义、Envelope、localStorage 键、测试依赖的选择器与文案不变；新增的交互只是导航与筛选，不是决策快捷方式 |
+| D17 | 新增 `work-retrospective`：复盘用户的请求与实际工作，独立能力，不接入 Router，只在用户明确要求时使用；数据采集由接入方负责，skill 只读统一事件格式 |

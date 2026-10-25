@@ -1,6 +1,6 @@
 # 0.10.0 变更说明
 
-本版是在 0.9.0 基础上的**局部改进**：结构、Skill 名称、契约语义都不变。每一项都对应讨论中确认的一个决定（D1–D14、D16），可以单独验证、单独回退。
+本版是在 0.9.0 基础上的**局部改进**：结构、Skill 名称、契约语义都不变。每一项都对应讨论中确认的一个决定（D1–D14、D16、D17），可以单独验证、单独回退。
 
 ## 两条底线
 1. 每个 Skill 都能独立运行：上游产物只加速，不是前提，每个消费点都写明退路。
@@ -25,6 +25,7 @@
 | D13 | skill-architecture 补“模型相对性”：**只起草，不改本插件内的副本**（该能力从独立来源同步） | `docs/proposals/skill-architecture-model-relativity.md`（新） | —— |
 | D14 | 术语速查：每个术语一句白话、何时用到、例子与易混点；文件头声明“以契约为准”，不新增定义 | `shared/glossary.md`（新）及 7 个 skill 的生成副本、各 SKILL.md 的 reference 索引一行、README 一行、同步脚本 | 删除该文件与索引行，撤回同步依赖 |
 | D16 | `review.html` 视图层重做：明暗两套主题、手机宽度可用、顶部「交接预览」条（点色块即筛选）、详情页 ← → 切换、理由框自动聚焦与 ⌘/Ctrl+Enter 提交、交接前对未决策给出提醒；**不改**决策状态、Decision Envelope、`proposalFingerprint`、AI 默认决策与 localStorage 键；只用系统字体，不新增外部依赖 | `skills/ai-code-review/assets/review.html` | 用 0.9.0 / D14 的 `assets/review.html` 覆盖该文件即可（单文件模板，无其他依赖） |
+| D17 | 新增 `work-retrospective`：按用户指定的范围（需求 / 任务 / 分支 / 任意时间段）对照请求与实际工作，找出走偏与走反，归因到用户侧 / agent 侧 / 插件侧 / 环境侧，结论分三条出口（对插件、对用户、对项目）；每条结论带证据指针与可信度档位；独立能力，不接入 Router，只在用户明确要求时使用；不改任何文件。会话采集不在本 skill 内，由接入方按 `sources.md` 的事件格式提供 | `skills/work-retrospective/`（新）、`scripts/sync_shared_references.py`（依赖一行）、`scripts/test_regressions.py`（skill 集合）、README / USER_PROMPTS 登记、`.qoder-plugin/plugin.json` 关键词 | 删除该目录，撤回上述四处登记 |
 
 ## 已经验证的（静态）
 - `scripts/check_plugin.py` 结构校验通过；共享契约副本与源一致。

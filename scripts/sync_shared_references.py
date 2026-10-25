@@ -43,6 +43,8 @@ DEPENDENCIES: dict[str, list[str]] = {
     # 只需要 context.md（业务上下文）与工作区归属规则
     "bugfix": ["workspace-and-ownership.md", "glossary.md"],
     "ai-code-review": ["workspace-and-ownership.md", "glossary.md"],
+    # 复盘只引用 context.md 的准入与写法（第 9 节）
+    "work-retrospective": ["workspace-and-ownership.md"],
 }
 
 AREA = "references"
