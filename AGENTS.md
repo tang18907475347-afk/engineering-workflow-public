@@ -71,3 +71,4 @@ python3 -m pytest skills/product-design/tests -q  # 需要 pytest
 | D12 | 现有方法类内容保持原写法，有失败证据处才加默认起点 |
 | D13 | skill-architecture 补“模型相对性”：只有提案，待在独立来源审阅 |
 | D14 | 术语速查 `shared/glossary.md`：只做白话翻译，以契约为准；同步到 7 个业务 skill |
+| D16 | `review.html` 视图层重做：只改视觉与导航，决策语义、Envelope、localStorage 键、测试依赖的选择器与文案不变；新增的交互只是导航与筛选，不是决策快捷方式 |

@@ -3,29 +3,298 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#f5f7fb">
+<meta name="theme-color" content="#f3f5f4">
 <title>Review Desk · AI Code Review</title>
 <link rel="stylesheet" href="https://unpkg.com/antd@5.27.4/dist/reset.css">
 <link rel="stylesheet" href="https://unpkg.com/highlight.js@11.11.1/styles/github.min.css">
 <link rel="stylesheet" href="https://unpkg.com/diff2html@3.4.56/bundles/css/diff2html.min.css">
 <style>
-:root{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;color:#263246;background:#f5f7fb}
-*{box-sizing:border-box}body{margin:0;background:#f5f7fb}button,input,textarea{font:inherit}#root{max-width:1820px;margin:auto;padding:0 24px 50px}.mono,code,pre{font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace}.muted{color:#8290a3}.small{font-size:12px}.tiny{font-size:11px}.strong{font-weight:700}.eyebrow{font-size:10px;font-weight:750;letter-spacing:.12em;color:#8491a6;text-transform:uppercase}.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.between{display:flex;justify-content:space-between;gap:12px;align-items:center}.wrap{overflow-wrap:anywhere;word-break:break-word}.block-text{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.7}.stack{display:flex;flex-direction:column;gap:11px}.space-top{margin-top:14px}.section-label{font-size:13px;font-weight:750;margin:0 0 11px}.path{font-size:11px;color:#75849b;overflow-wrap:anywhere}.header{display:flex;align-items:center;flex-wrap:wrap;gap:13px;min-height:76px;border-bottom:1px solid #e3e9f1}.brand{font-size:18px;font-weight:850;letter-spacing:-.075em}.brand em{font-style:normal;color:#5c66d4}.header-desc{font-size:11px;color:#97a2b1}.header-actions{display:flex;margin-left:auto;gap:7px;flex-wrap:wrap}.intro{padding:26px 0 21px}.intro h1{font-size:27px;line-height:1.3;letter-spacing:-.04em;margin:5px 0 9px}.preflight{display:flex;gap:7px;flex-wrap:wrap;margin-top:15px}.overview{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}.overview .ant-card-body{padding:15px 19px}.metric-label{font-size:11px;font-weight:700;color:#8491a3}.metric-number{font-size:28px;font-weight:760;letter-spacing:-.045em;line-height:1.45}.metric-foot{font-size:11px;color:#8b98aa;margin-top:6px}.workbench{display:grid;grid-template-columns:265px minmax(0,1fr) 296px;gap:14px;align-items:start}.workbench.closed-view{grid-template-columns:265px minmax(0,1fr)}.workbench>*{min-width:0}.maincol{display:flex;flex-direction:column;gap:14px}.ant-card{border-radius:13px;box-shadow:0 8px 27px rgba(31,46,79,.025)}.queue{position:sticky;top:12px;overflow:hidden;max-height:calc(100vh - 24px)}.queue .ant-card-body{padding:0;display:flex;flex-direction:column;max-height:calc(100vh - 24px)}.queue-top{padding:16px 14px 12px;border-bottom:1px solid #edf0f5}.queue-filters{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:9px}.queue-list{overflow-y:auto;padding:7px;min-height:80px;flex:1}.queue-item{display:block;width:100%;text-align:left;border:1px solid transparent;border-radius:9px;padding:11px 10px;background:transparent;color:inherit;cursor:pointer;margin-bottom:3px}.queue-item:hover{background:#f7f8fc}.queue-item.selected{background:#f0f2ff;border-color:#dce1fc}.queue-item .title{font-size:12px;font-weight:700;line-height:1.5;margin:9px 0 5px}.queue-meta{display:flex;justify-content:space-between;gap:5px;margin-top:6px;font-size:10px;color:#8693a7}.queue-closed{border-top:1px solid #e7ebf2;background:#fafbfe;flex:none;max-height:32vh;display:flex;flex-direction:column}.queue-closed-label{padding:10px 15px;font-size:11px;color:#8190a3;font-weight:750}.queue-closed .queue-list{overflow-y:auto;min-height:0}.queue-item.closed{opacity:.75}.queue-item.closed.selected{opacity:1}.decision{position:sticky;top:12px}.decision .ant-card-body{padding:20px}.decision .ant-radio-group{display:flex;flex-direction:column;gap:6px;width:100%;margin:10px 0}.decision .ant-radio-wrapper{display:flex;align-items:center;width:100%;margin:0;border:1px solid #e4e9f0;border-radius:9px;padding:8px 12px;background:white;white-space:normal}.decision .ant-radio-wrapper-checked{background:#f1f3ff;border-color:#8c99ec}.decision .ant-radio-wrapper-disabled{opacity:.55}.choice-name{font-weight:750;color:#2b3852}.choice-desc{font-size:11px;color:#8190a3;margin-top:3px}.decision hr{border:0;border-top:1px solid #edf0f5;margin:10px 0}.decision-note{margin-top:17px}.diff-card .ant-card-body{padding:0}.diff-head{padding:15px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:1px solid #e9edf4}.diff-card.proposed .diff-head{background:#f4f5ff;border-radius:13px 13px 0 0}.diff-desc{font-size:11px;color:#8b97a7;margin-top:4px}.diff-canvas{overflow:auto;max-height:490px}.diff-canvas .d2h-wrapper{font-size:11px;min-width:0;width:100%}.diff-canvas .d2h-file-header{display:none}.diff-canvas .d2h-files-diff{margin:0}.diff-canvas .d2h-file-wrapper{margin:0;border:0}.diff-canvas .d2h-code-linenumber,.diff-canvas .d2h-code-side-linenumber{position:static}.diff-canvas tr.review-target>td{background:#eef2ff}.diff-canvas tr.review-target>td:first-child{box-shadow:inset 3px 0 #596ce4}.no-diff{padding:24px 16px}.diff-addendum{padding:12px 18px;border-top:1px solid #edf0f6}.code-plain{margin:0;background:#f7f8fb;border:1px solid #e7ebf1;white-space:pre;overflow:auto;max-height:320px;border-radius:9px;padding:12px;font-size:11px;line-height:1.65}.detail .ant-card-body{padding:22px}.detail-title{font-size:20px;line-height:1.4;letter-spacing:-.025em;font-weight:760;margin:6px 0 13px}.detail-section{padding:17px 0;border-bottom:1px solid #edf0f5}.detail-section:last-child{padding-bottom:0;border:0}.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.info-box{padding:12px 13px;border:1px solid #e9edf4;background:#f8f9fc;border-radius:9px;min-width:0}.info-box:last-child:nth-child(odd){grid-column:1/-1}.label{font-size:11px;font-weight:730;color:#8390a4;margin-bottom:5px}.evidence{border-left:3px solid #9faee2;background:#f7f8fd;border-radius:0 9px 9px 0;padding:11px 12px;margin:8px 0}.proposal{border:1px solid #dfe3fb;background:#f8f9ff;border-radius:10px;padding:15px}.proposal-title{font-size:15px;font-weight:750;margin:9px 0}.plain-list{padding-left:19px;margin:8px 0}.plain-list li{padding:3px 0;overflow-wrap:anywhere}.readonly-note{margin:16px 0}.ant-typography{overflow-wrap:anywhere}.ant-tag{margin-inline-end:0}.handoff-text textarea{font:12px/1.55 ui-monospace,Consolas,monospace!important;min-height:370px!important}.ant-progress{margin:0}.toolbar-text{font-size:11px;color:#8995a6}.badge-dot{height:6px;width:6px;background:#6676e5;display:inline-block;border-radius:50%;vertical-align:middle;margin-right:6px}
-@media(max-width:1230px){.workbench,.workbench.closed-view{grid-template-columns:245px minmax(0,1fr)}.decision{grid-column:2;position:static}.maincol{grid-column:2;grid-row:1}.queue{grid-row:1/span 2}.overview{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:740px){#root{padding:0 12px 28px}.header{padding:13px 0}.header-actions{margin:0;width:100%}.intro h1{font-size:23px}.workbench,.workbench.closed-view{display:flex;flex-direction:column}.queue,.maincol,.decision{position:static;width:100%;max-height:none}.queue .ant-card-body{max-height:none}.queue-list{max-height:315px;flex:none}.queue-closed .queue-list{max-height:180px}.overview{gap:8px}.overview .ant-card-body{padding:13px}.metric-number{font-size:22px}.detail-grid{grid-template-columns:1fr}.info-box:last-child:nth-child(odd){grid-column:auto}.detail .ant-card-body{padding:16px}.diff-canvas{max-height:390px}.diff-head{padding:12px}.preflight{gap:5px}}
+/* 布局：顶栏（身份 + 交接动作）→ 交接预览 | 问题构成 → 问题队列（主工作面）→ 已关闭。
+   详情是全屏工作单：左侧按 问题 → 分析 阅读，右侧固定授权面板。
+   颜色只从下面的变量取；风险（高/中/低）与决策（执行/关闭/暂缓/退回/未决策）各有一套语义色，和强调色分开。 */
+:root{
+  --bg:#f3f5f4;--surface:#ffffff;--surface-2:#f7f9f8;--sunken:#eaefed;
+  --line:#dce2e0;--line-soft:#e9eeec;
+  --ink:#17201e;--ink-2:#46514e;--ink-3:#77827f;
+  --accent:#0e7c74;--accent-soft:#e1f1ee;--accent-ink:#0a5b55;--on-accent:#ffffff;
+  --high:#c8372d;--high-soft:#fcebe9;--mid:#a8650b;--mid-soft:#fbf0dc;--low:#5d756d;--low-soft:#e7efec;
+  --rework:#6a4fc0;--rework-soft:#efebfa;--defer:#4a6496;--defer-soft:#e7ecf6;--closed:#86908d;--closed-soft:#edf0ef;
+  --shadow:0 1px 2px rgba(23,32,30,.04),0 8px 24px rgba(23,32,30,.035);
+  --font-ui:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei UI",system-ui,sans-serif;
+  --font-mono:"JetBrains Mono","SF Mono",SFMono-Regular,ui-monospace,Menlo,Consolas,"Liberation Mono",monospace;
+  --d2h-bg-color:var(--surface);--d2h-border-color:var(--line);--d2h-dim-color:var(--ink-3);--d2h-line-border-color:var(--line-soft);
+  --d2h-file-header-bg-color:var(--surface-2);--d2h-file-header-border-color:var(--line);
+  --d2h-empty-placeholder-bg-color:var(--surface-2);--d2h-empty-placeholder-border-color:var(--line-soft);
+  --d2h-ins-bg-color:#e8f6ed;--d2h-ins-border-color:#bfe3c9;--d2h-ins-highlight-bg-color:#b4e5c1;--d2h-ins-label-color:#2f8a4c;
+  --d2h-del-bg-color:#fdeceb;--d2h-del-border-color:#f2c4c0;--d2h-del-highlight-bg-color:#f6c2bd;--d2h-del-label-color:#c8372d;
+  --d2h-change-del-color:#fbf1dc;--d2h-change-ins-color:#e2f3e7;--d2h-info-bg-color:var(--surface-2);--d2h-info-border-color:var(--line-soft);
+  --hl-text:var(--ink);--hl-kw:#cf222e;--hl-title:#8250df;--hl-attr:#0550ae;--hl-str:#0a3069;--hl-builtin:#953800;--hl-comment:#6e7781;--hl-name:#116329;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0e1312;--surface:#151c1a;--surface-2:#1a2220;--sunken:#222b29;
+  --line:#2b3532;--line-soft:#222b28;
+  --ink:#e3eae7;--ink-2:#aeb9b5;--ink-3:#7f8b87;
+  --accent:#3db5a6;--accent-soft:rgba(61,181,166,.15);--accent-ink:#86d8cc;--on-accent:#06201d;
+  --high:#f06a5e;--high-soft:rgba(240,106,94,.15);--mid:#e2a54a;--mid-soft:rgba(226,165,74,.15);--low:#93b3a8;--low-soft:rgba(147,179,168,.13);
+  --rework:#a891f2;--rework-soft:rgba(168,145,242,.16);--defer:#94aad6;--defer-soft:rgba(148,170,214,.15);--closed:#7f8b87;--closed-soft:rgba(127,139,135,.16);
+  --shadow:none;
+  --d2h-ins-bg-color:rgba(46,160,67,.15);--d2h-ins-border-color:rgba(46,160,67,.4);--d2h-ins-highlight-bg-color:rgba(46,160,67,.4);--d2h-ins-label-color:#3fb950;
+  --d2h-del-bg-color:rgba(248,81,73,.1);--d2h-del-border-color:rgba(248,81,73,.4);--d2h-del-highlight-bg-color:rgba(248,81,73,.4);--d2h-del-label-color:#f85149;
+  --d2h-change-del-color:rgba(210,153,34,.2);--d2h-change-ins-color:rgba(46,160,67,.25);
+  --hl-kw:#ff7b72;--hl-title:#d2a8ff;--hl-attr:#79c0ff;--hl-str:#a5d6ff;--hl-builtin:#ffa657;--hl-comment:#8b949e;--hl-name:#7ee787;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0e1312;--surface:#151c1a;--surface-2:#1a2220;--sunken:#222b29;
+  --line:#2b3532;--line-soft:#222b28;
+  --ink:#e3eae7;--ink-2:#aeb9b5;--ink-3:#7f8b87;
+  --accent:#3db5a6;--accent-soft:rgba(61,181,166,.15);--accent-ink:#86d8cc;--on-accent:#06201d;
+  --high:#f06a5e;--high-soft:rgba(240,106,94,.15);--mid:#e2a54a;--mid-soft:rgba(226,165,74,.15);--low:#93b3a8;--low-soft:rgba(147,179,168,.13);
+  --rework:#a891f2;--rework-soft:rgba(168,145,242,.16);--defer:#94aad6;--defer-soft:rgba(148,170,214,.15);--closed:#7f8b87;--closed-soft:rgba(127,139,135,.16);
+  --shadow:none;
+  --d2h-ins-bg-color:rgba(46,160,67,.15);--d2h-ins-border-color:rgba(46,160,67,.4);--d2h-ins-highlight-bg-color:rgba(46,160,67,.4);--d2h-ins-label-color:#3fb950;
+  --d2h-del-bg-color:rgba(248,81,73,.1);--d2h-del-border-color:rgba(248,81,73,.4);--d2h-del-highlight-bg-color:rgba(248,81,73,.4);--d2h-del-label-color:#f85149;
+  --d2h-change-del-color:rgba(210,153,34,.2);--d2h-change-ins-color:rgba(46,160,67,.25);
+  --hl-kw:#ff7b72;--hl-title:#d2a8ff;--hl-attr:#79c0ff;--hl-str:#a5d6ff;--hl-builtin:#ffa657;--hl-comment:#8b949e;--hl-name:#7ee787;
+  color-scheme:dark;
+}
+
+/* ---------- 基础 ---------- */
+*{box-sizing:border-box}
+html,body{background:var(--bg)}
+body{margin:0;color:var(--ink);font:13px/1.55 var(--font-ui);-webkit-font-smoothing:antialiased}
+button,input,textarea{font:inherit}
+#root{max-width:1600px;margin:0 auto;padding:0 28px 56px}
+.mono,code,pre{font-family:var(--font-mono)}
+.tnum{font-variant-numeric:tabular-nums}
+.muted{color:var(--ink-3)}.small{font-size:12px}.tiny{font-size:11px}.strong{font-weight:700}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.08em;color:var(--ink-3);text-transform:uppercase}
+.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.between{display:flex;justify-content:space-between;gap:12px;align-items:center}
+.wrap{overflow-wrap:anywhere;word-break:break-word}
+.block-text{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.7}
+.stack{display:flex;flex-direction:column;gap:11px}
+.space-top{margin-top:12px}
+.section-label{font-size:13px;font-weight:650;margin:0 0 10px}
+.path{font:11px/1.5 var(--font-mono);color:var(--ink-3);overflow-wrap:anywhere}
+.ant-typography{overflow-wrap:anywhere}
+.ant-tag{margin-inline-end:0}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* ---------- 顶栏 ---------- */
+.header{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:14px;flex-wrap:wrap;min-height:56px;margin:0 -28px;padding:8px 28px;background:var(--bg);background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:saturate(1.3) blur(10px);-webkit-backdrop-filter:saturate(1.3) blur(10px);border-bottom:1px solid var(--line)}
+.brand{font:700 15px/1 var(--font-mono);letter-spacing:-.03em;color:var(--ink)}
+.brand em{font-style:normal;color:var(--accent)}
+.header-desc{font-size:12px;color:var(--ink-3);padding-left:14px;border-left:1px solid var(--line)}
+.header-actions{display:flex;margin-left:auto;gap:8px;flex-wrap:wrap}
+
+/* ---------- MR 身份 ---------- */
+.intro{display:flex;justify-content:space-between;align-items:flex-end;gap:12px 24px;flex-wrap:wrap;padding:26px 0 18px}
+.intro h1{font-size:26px;line-height:1.25;letter-spacing:-.02em;font-weight:700;margin:6px 0 10px;text-wrap:balance;overflow-wrap:anywhere}
+.intro h1 .iid{font:500 21px var(--font-mono);color:var(--ink-3);margin-left:6px}
+.intro-meta{display:flex;align-items:center;gap:6px 12px;flex-wrap:wrap;font-size:12px;color:var(--ink-3)}
+.branch{font:12px/20px var(--font-mono);padding:0 7px;border-radius:4px;background:var(--sunken);color:var(--ink-2);overflow-wrap:anywhere}
+a{color:var(--accent-ink)}
+.mr-link{text-decoration:none;font-size:13px;font-weight:600;white-space:nowrap}
+
+/* ---------- 交接预览 + 问题构成 ---------- */
+.summary{display:grid;grid-template-columns:minmax(0,1.9fr) minmax(0,1fr);gap:14px;margin-bottom:18px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px 20px;box-shadow:var(--shadow);min-width:0}
+.ledger-top{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}
+.ledger-sentence{margin:8px 0 0;font-size:15px;line-height:1.75;color:var(--ink-2);max-width:64ch}
+.ledger-sentence b{color:var(--ink);font-weight:700;font-variant-numeric:tabular-nums}
+.ledger-sentence b.n-approve{color:var(--accent-ink)}
+.ledger-sentence .warn{color:var(--mid);font-weight:600}
+.ledger-sentence .ok{color:var(--accent-ink);font-weight:600}
+.ledger-progress{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex:none}
+.ledger-progress .big{font-size:30px;font-weight:700;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.ledger-progress .big small{font-size:15px;font-weight:500;color:var(--ink-3)}
+.ledger-bar{display:flex;gap:3px;height:30px;margin:16px 0 12px}
+.seg{display:flex;align-items:center;min-width:26px;padding:0 9px;border-radius:5px;font:600 12px/1 var(--font-mono);overflow:hidden;white-space:nowrap}
+.ledger-legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:12px;color:var(--ink-2)}
+.ledger-legend .lg{display:inline-flex;align-items:center}
+.ledger-legend .lg b{margin-left:6px;color:var(--ink);font-variant-numeric:tabular-nums}
+.ledger-legend .lg.zero{opacity:.45}
+.sw{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:7px}
+.seg-APPROVE{background:var(--accent);color:var(--on-accent)}
+.seg-CLOSE{background:var(--closed-soft);color:var(--ink-2);box-shadow:inset 0 0 0 1px var(--line)}
+.seg-DEFER{background:var(--defer-soft);color:var(--defer)}
+.seg-PROVIDE_INFO{background:var(--rework-soft);color:var(--rework)}
+.seg-UNDECIDED{color:var(--mid);background:repeating-linear-gradient(135deg,var(--mid-soft) 0 5px,transparent 5px 10px);box-shadow:inset 0 0 0 1px var(--mid)}
+.seg{border:0;cursor:pointer;transition:filter .15s}.seg:hover{filter:brightness(.94)}
+.ledger-legend .lg{border:0;background:none;padding:0;font:inherit;color:inherit;cursor:pointer}
+.ledger-legend .lg:disabled{cursor:default}.ledger-legend .lg:not(:disabled):hover{color:var(--ink)}
+.mix-pick{border:0;background:none;padding:0;font:inherit;color:inherit;cursor:pointer;text-align:left}.mix-pick:hover{color:var(--ink);text-decoration:underline}
+.queue-card{scroll-margin-top:72px}
+.seg{position:relative;transition:filter .15s,transform .15s,box-shadow .15s}
+.seg:hover{filter:none;transform:translateY(-2px);box-shadow:0 3px 0 -1px var(--ink-3),0 6px 14px rgba(0,0,0,.18)}
+.seg:active{transform:translateY(0)}
+.seg:focus-visible,.ledger-legend .lg:focus-visible,.mix-pick:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.ledger-legend .lg:not(:disabled):hover{text-decoration:underline;text-underline-offset:3px}
+.hint-pill{display:inline-block;margin-left:10px;padding:2px 8px;border-radius:999px;background:var(--accent-soft,rgba(14,124,116,.12));color:var(--accent-ink);font-size:11px;font-weight:600;letter-spacing:0;text-transform:none}
+.kbd-hint{display:inline-flex;align-items:center;gap:4px;font-size:12px;color:var(--ink-3);white-space:nowrap}
+.kbd-hint kbd{display:inline-block;min-width:20px;padding:1px 5px;border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;background:var(--surface);color:var(--ink-2);font:600 11px/1.4 var(--font-mono);text-align:center}
+@media (max-width:760px),(pointer:coarse){.kbd-hint{display:none}.hint-pill{display:none}}
+.ledger-alert{margin-top:12px;padding:8px 11px;border-radius:6px;background:var(--high-soft);color:var(--high);font-size:12px;font-weight:600}
+.facts{display:flex;flex-direction:column;gap:18px}
+.mix{display:grid;grid-template-columns:auto minmax(0,1fr) 2.2em;gap:8px 12px;align-items:center;font-size:12px;color:var(--ink-2)}
+.mix .bar{height:6px;border-radius:3px;background:var(--sunken);overflow:hidden}
+.mix .bar i{display:block;height:100%;border-radius:3px}
+.mix .n{font:600 12px var(--font-mono);color:var(--ink);text-align:right}
+.fill-high{background:var(--high)}.fill-medium{background:var(--mid)}.fill-low{background:var(--low)}
+.assess{margin-top:10px;font-size:12px;color:var(--ink-3)}
+.assess b{color:var(--ink-2);font-variant-numeric:tabular-nums}
+.checks{display:flex;flex-wrap:wrap;gap:6px}
+.check{display:inline-flex;align-items:center;gap:6px;font-size:12px;line-height:22px;padding:0 9px 0 8px;border-radius:999px;border:1px solid var(--line);background:var(--surface-2);color:var(--ink-2);cursor:default}
+.check::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--ink-3)}
+.check.success::before{background:var(--accent)}
+.check.error{color:var(--high);background:var(--high-soft);border-color:transparent}
+.check.error::before{background:var(--high)}
+.check.warning{color:var(--mid);background:var(--mid-soft);border-color:transparent}
+.check.warning::before{background:var(--mid)}
+
+/* ---------- 问题队列 ---------- */
+.queue-card{background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);overflow:hidden}
+.queue-toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px 16px;flex-wrap:wrap;padding:13px 16px;border-bottom:1px solid var(--line-soft)}
+.queue-title{font-size:15px;font-weight:700}
+.count{font:600 12px/20px var(--font-mono);padding:0 7px;border-radius:4px;background:var(--sunken);color:var(--ink-2)}
+.finding-table .ant-table{background:transparent;font-size:13px}
+.finding-table .ant-table-container{border-radius:0!important}
+.finding-table .ant-table-thead>tr>th{background:var(--surface-2)!important;color:var(--ink-3)!important;font-size:11px;font-weight:600!important;letter-spacing:.04em;padding:8px 12px!important;border-bottom:1px solid var(--line)!important;border-radius:0!important}
+.finding-table .ant-table-thead>tr>th::before{display:none}
+.finding-table .ant-table-tbody>tr.ant-table-row>td{padding:11px 12px!important;border-bottom:1px solid var(--line-soft)!important;vertical-align:middle;background:var(--surface)}
+.finding-table .ant-table-row{cursor:pointer}
+.finding-table .ant-table-tbody>tr.ant-table-row:hover>td{background:var(--surface-2)!important}
+.finding-table .ant-table-tbody>tr.row-selected>td{background:var(--accent-soft)!important}
+.finding-table .ant-table-tbody>tr.ant-table-row>td:first-child{box-shadow:inset 3px 0 0 transparent}
+.finding-table .ant-table-tbody>tr.risk-high>td:first-child{box-shadow:inset 3px 0 0 var(--high)}
+.finding-table .ant-table-tbody>tr.risk-medium>td:first-child{box-shadow:inset 3px 0 0 var(--mid)}
+.finding-table .ant-table-tbody>tr.risk-low>td:first-child{box-shadow:inset 3px 0 0 var(--line)}
+.finding-table .ant-pagination{padding:0 16px}
+.id-cell{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+.id-cell .id{font:12px var(--font-mono);color:var(--ink-3)}
+.risk{display:inline-block;padding:0 6px;border-radius:4px;font-size:11px;font-weight:600;line-height:18px;white-space:nowrap}
+.risk-high{background:var(--high-soft);color:var(--high)}
+.risk-medium{background:var(--mid-soft);color:var(--mid)}
+.risk-low{background:var(--low-soft);color:var(--low)}
+.q-cell{min-width:0}
+.cell-title{display:block;font-weight:600;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cell-title .kind{font-weight:500;color:var(--ink-3);margin-right:8px;font-size:12px}
+.q-cell .path{margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rec{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--ink-2);white-space:nowrap}
+.rec::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:currentColor}
+.rec-FIX{color:var(--accent-ink)}.rec-DISMISS{color:var(--closed)}.rec-DEFER{color:var(--defer)}.rec-NEEDS_EVIDENCE{color:var(--mid)}
+.acc{font-size:12px;white-space:nowrap}
+.acc-human{color:var(--mid);font-weight:600}.acc-auto{color:var(--ink-2)}.acc-none{color:var(--ink-3)}
+.ant-tag.dtag{margin:0;border-radius:4px;font-size:12px;font-weight:600;line-height:20px;padding:0 8px;border:1px solid transparent}
+.ant-tag.dtag.is-ai{border-style:dashed}
+.ant-tag.dtag-APPROVE{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.ant-tag.dtag-APPROVE.is-ai{background:var(--accent-soft);color:var(--accent-ink)}
+.ant-tag.dtag-CLOSE{background:var(--closed-soft);color:var(--ink-2);border-color:var(--line)}
+.ant-tag.dtag-CLOSE.is-ai{border-color:var(--closed)}
+.ant-tag.dtag-DEFER{background:var(--defer-soft);color:var(--defer)}
+.ant-tag.dtag-PROVIDE_INFO{background:var(--rework-soft);color:var(--rework)}
+.ant-tag.dtag-UNDECIDED{background:var(--mid-soft);color:var(--mid)}
+.ant-tag.dtag-BAD{background:var(--high-soft);color:var(--high);border-color:var(--high)}
+.op{display:flex;gap:2px;flex-wrap:nowrap}
+.op .ant-btn{padding-inline:6px}
+.ant-btn.btn-undo{color:var(--ink-3)}
+.queue-closed{margin-top:14px;background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.queue-closed-label{padding:11px 16px;font-size:12px;font-weight:600;color:var(--ink-3);border-bottom:1px solid var(--line-soft)}
+.queue-closed .ant-table-tbody>tr>td{color:var(--ink-2)}
+
+/* ---------- 详情工作单 ---------- */
+.detail-modal .ant-modal{top:0;max-width:100vw;margin:0;padding-bottom:0}
+.detail-modal .ant-modal-content{height:100vh;border-radius:0!important;display:flex;flex-direction:column;box-shadow:none;padding:0!important;background:var(--bg)!important}
+.detail-modal .ant-modal-header{display:none}
+.detail-modal .ant-modal-body{flex:1;overflow:auto;padding:0!important}
+.detail-topbar{position:sticky;top:0;z-index:3;display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 28px;background:var(--surface);background:color-mix(in srgb,var(--surface) 90%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar-sep{width:1px;height:18px;background:var(--line)}
+.detail-shell{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:24px;align-items:start;max-width:1480px;margin:0 auto;padding:22px 28px 72px}
+.detail-main{min-width:0;display:flex;flex-direction:column;gap:14px}
+.zone{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px 22px;box-shadow:var(--shadow);min-width:0}
+.zone-title,.detail-rail-title{display:flex;align-items:center;gap:8px;margin:0 0 14px;font-size:12px;font-weight:600;letter-spacing:.04em;color:var(--ink-3)}
+.zone-title .idx,.detail-rail-title .idx{font:600 11px/18px var(--font-mono);color:var(--accent-ink);background:var(--accent-soft);border-radius:4px;padding:0 6px}
+.finding-title{font-size:20px;font-weight:700;line-height:1.45;letter-spacing:-.01em;margin:0 0 8px;text-wrap:balance;overflow-wrap:anywhere}
+.finding-title code,.note-md code{font-size:.88em;background:var(--sunken);padding:1px 5px;border-radius:4px}
+.lead{font-size:15px;font-weight:600;line-height:1.65;color:var(--ink)}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.info-box{padding:12px 14px;border-radius:8px;background:var(--surface-2);border:1px solid var(--line-soft);min-width:0}
+.info-box:last-child:nth-child(odd){grid-column:1/-1}
+.label{font-size:11px;font-weight:600;letter-spacing:.03em;color:var(--ink-3);margin-bottom:6px}
+.diff-card{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--surface)}
+.diff-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:10px 14px;background:var(--surface-2);border-bottom:1px solid var(--line)}
+.diff-desc{font:11px var(--font-mono);color:var(--ink-3);margin-top:2px;overflow-wrap:anywhere}
+.diff-canvas{overflow:auto;max-height:520px;background:var(--surface)}
+.diff-canvas .d2h-wrapper{font-size:12px;min-width:0;width:100%}
+.diff-canvas .d2h-file-header{display:none}
+.diff-canvas .d2h-files-diff{margin:0}
+.diff-canvas .d2h-file-wrapper{margin:0;border:0;border-radius:0}
+.diff-canvas .d2h-diff-table{font-family:var(--font-mono);font-size:12px}
+.diff-canvas .d2h-code-linenumber,.diff-canvas .d2h-code-side-linenumber{position:static}
+.diff-canvas tr.review-target>td{background:var(--accent-soft)!important}
+.diff-canvas tr.review-target>td:first-child{box-shadow:inset 3px 0 var(--accent)}
+.diff-canvas .hljs{color:var(--hl-text);background:transparent}
+.diff-canvas .hljs-keyword,.diff-canvas .hljs-doctag,.diff-canvas .hljs-template-tag,.diff-canvas .hljs-type{color:var(--hl-kw)}
+.diff-canvas .hljs-title,.diff-canvas .hljs-title.function_,.diff-canvas .hljs-title.class_{color:var(--hl-title)}
+.diff-canvas .hljs-attr,.diff-canvas .hljs-attribute,.diff-canvas .hljs-literal,.diff-canvas .hljs-number,.diff-canvas .hljs-variable,.diff-canvas .hljs-meta,.diff-canvas .hljs-operator{color:var(--hl-attr)}
+.diff-canvas .hljs-string,.diff-canvas .hljs-regexp{color:var(--hl-str)}
+.diff-canvas .hljs-built_in,.diff-canvas .hljs-symbol{color:var(--hl-builtin)}
+.diff-canvas .hljs-comment,.diff-canvas .hljs-code{color:var(--hl-comment)}
+.diff-canvas .hljs-name,.diff-canvas .hljs-selector-tag,.diff-canvas .hljs-quote{color:var(--hl-name)}
+.diff-canvas .hljs-subst,.diff-canvas .hljs-params{color:var(--hl-text)}
+.no-diff{padding:24px 16px}
+.code-plain{margin:0;background:var(--surface-2);border:1px solid var(--line-soft);color:var(--ink);white-space:pre;overflow:auto;max-height:320px;border-radius:8px;padding:12px;font-size:12px;line-height:1.65}
+.note-md{white-space:pre-wrap;background:var(--surface-2);border:1px solid var(--line-soft);border-radius:8px;padding:12px 14px;line-height:1.7;overflow-wrap:anywhere}
+.md-img{height:18px;vertical-align:middle}
+.evidence{padding:9px 12px;margin:6px 0;border-radius:8px;background:var(--surface-2);border:1px solid var(--line-soft);font-size:12px}
+.evidence .space-top{margin-top:5px}
+.proposal{border:1px solid var(--line);border-color:color-mix(in srgb,var(--accent) 35%,var(--line));background:var(--surface-2);background:color-mix(in srgb,var(--accent-soft) 55%,var(--surface));border-radius:10px;padding:16px 18px}
+.proposal-title{font-size:16px;font-weight:700;margin:8px 0}
+.kb{border:1px solid var(--line);border-color:color-mix(in srgb,var(--mid) 40%,var(--line));background:var(--mid-soft);border-radius:10px;padding:14px 16px}
+.kb-title{font-weight:700;color:var(--mid);margin-bottom:10px}
+.oq{border:1px solid var(--line);border-radius:8px;padding:11px 12px;margin:8px 0;background:var(--surface)}
+.plain-list{padding-left:19px;margin:6px 0}
+.plain-list li{padding:2px 0;overflow-wrap:anywhere}
+.readonly-note{margin:16px 0}
+.decision-rail{position:sticky;top:72px;max-height:calc(100vh - 96px);overflow:auto}
+.decision{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;box-shadow:var(--shadow)}
+.accept-banner{margin:12px 0 4px;padding:9px 12px;border-radius:8px;font-weight:600;font-size:13px;display:flex;flex-direction:column;gap:3px}
+.accept-banner.on{background:var(--mid-soft);color:var(--mid)}
+.accept-banner.off{background:var(--accent-soft);color:var(--accent-ink)}
+.decision-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.decision-actions .ant-btn-primary{flex:1 1 100%}
+.decision-foot{display:flex;align-items:center;gap:8px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line-soft)}
+.handoff-text textarea{font:12px/1.55 var(--font-mono)!important;min-height:370px!important}
+.envelope-counts{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+
+/* ---------- 窄屏 ---------- */
+@media (max-width:1180px){.detail-shell{grid-template-columns:minmax(0,1fr)}.decision-rail{position:static;max-height:none}}
+@media (max-width:980px){.summary{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:740px){
+  #root{padding:0 14px 32px}
+  .header{position:static;margin:0 -14px;padding:10px 14px}
+  .header-desc{display:none}
+  .header-actions{margin-left:0;width:100%}
+  .header-actions>*{flex:1}
+  .header-actions .ant-btn{width:100%}
+  .intro{padding:18px 0 14px}
+  .intro h1{font-size:22px}.intro h1 .iid{font-size:18px}
+  .panel{padding:16px}
+  .ledger-top{flex-direction:column;gap:10px}
+  .ledger-progress{flex-direction:row;align-items:baseline;gap:8px}
+  .ledger-sentence{font-size:14px}
+  .queue-toolbar .row{width:100%}
+  .queue-toolbar .ant-input-search{flex:1;width:auto!important}
+  .detail-topbar{padding:10px 14px}
+  .detail-shell{padding:14px 14px 48px;gap:14px}
+  .zone{padding:16px}
+  .detail-grid{grid-template-columns:1fr}
+  .info-box:last-child:nth-child(odd){grid-column:auto}
+  .diff-canvas{max-height:400px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
-<style>.charts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}.chart-card .ant-card-body{padding:15px 18px}.chart-body{position:relative;height:128px;margin-top:4px}.donut-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;line-height:1.2}.chart-legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px;font-size:11px;color:#7c8a9e}.chart-legend i{width:9px;height:9px;border-radius:2px;display:inline-block;margin-right:5px;vertical-align:middle}.queue-card .ant-card-body{padding:8px 14px 0}.finding-table .ant-table{font-size:12px}.finding-table .ant-table-row{cursor:pointer}.finding-table .row-selected>td{background:#f0f2ff!important}.finding-table .cell-title{font-weight:650;color:#2b3852}.finding-table .ant-table-cell{padding:9px 12px!important}.detail-modal .ant-modal{top:0;max-width:100vw;margin:0;padding-bottom:0}.detail-modal .ant-modal-content{height:100vh;border-radius:0;display:flex;flex-direction:column;box-shadow:none}.detail-modal .ant-modal-header{display:none}.detail-modal .ant-modal-body{flex:1;overflow:auto;padding:0!important}.detail-topbar{position:sticky;top:0;z-index:3;background:rgba(255,255,255,.94);backdrop-filter:blur(6px);border-bottom:1px solid #eaeef4;padding:14px 30px;display:flex;align-items:center;gap:14px}.detail-shell{max-width:none;margin:0;padding:22px 30px 70px}.zone{margin-top:18px}.zone-title{font-size:13px;font-weight:750;color:#33415c;margin:0 0 11px;display:flex;align-items:center;gap:8px}.zone-title .idx{font-size:11px;font-weight:800;letter-spacing:.06em;color:#8b98ec;background:#eef0fc;border-radius:6px;padding:2px 7px}.material{border:1px solid #e7ebf3;border-radius:13px;overflow:hidden;background:#fff}.material-tabs{padding:0 14px}.detail-modal .decision{position:static;box-shadow:none;border:1px solid #dfe3fb;background:#f8f9ff}.detail-modal .decision .ant-radio-wrapper{background:#fff}.material-card .ant-card-body{padding:0}.diff-card{border:0;box-shadow:none;background:transparent}.material{border:0;border-top:1px solid #eef1f6;border-radius:0;background:transparent;overflow:visible}.decision-card .ant-card-body{padding:14px 16px}.decision-inline{position:static;margin-top:12px;border-top:1px solid #e8ecf3;padding-top:12px}.accept-banner{margin:10px 0 2px;padding:8px 12px;border-radius:10px;font-weight:750;font-size:13px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}.accept-banner.on{background:#fff1f0;border:1px solid #ffccc7;color:#a8071a}.accept-banner.off{background:#f6ffed;border:1px solid #b7eb8f;color:#237804}.finding-title{font-size:20px;font-weight:750;margin:2px 0 6px;line-height:1.35}.kb{border:1px solid #ffe7ba;background:#fffbe6;border-radius:10px;padding:12px 14px}.kb-title{font-weight:750;color:#ad6800;margin-bottom:8px}.oq{border:1px solid #e9edf4;border-radius:9px;padding:11px 12px;margin:8px 0;background:#fbfcfe}.note-md{white-space:pre-wrap;background:#fbfcfe;padding:4px 2px}.md-img{height:20px;vertical-align:middle;margin-right:6px}.ai-suggest{font-size:10px;line-height:16px;margin-left:7px;vertical-align:middle;padding:0 6px}.diff-card{overflow:hidden}.diff-card .diff-canvas{max-height:none}.diff-card .d2h-wrapper{margin-bottom:0}.diff-card .d2h-file-wrapper{border-bottom:0}@media(max-width:740px){.charts{grid-template-columns:repeat(2,minmax(0,1fr))}.detail-topbar{padding:12px 14px}.detail-shell{padding:16px 14px 60px}}.detail-modal .decision{background:#fff;border:1px solid #dbe2f0;border-radius:14px;padding:18px 20px;box-shadow:0 1px 3px rgba(43,56,82,.05)}.decision-inline{border-top:0;padding-top:0;margin-top:0}.decision-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.decision-actions .ant-btn{border-radius:9px;font-weight:600}.decision-foot{display:flex;gap:10px;align-items:center;margin-top:14px;padding-top:12px;border-top:1px dashed #e6ebf3}.oq{background:#fff;border:1px solid #e6ebf3;border-radius:10px;padding:10px 12px;margin:8px 0;box-shadow:0 1px 2px rgba(43,56,82,.03)}.finding-title code{background:#eef1f8;border-radius:5px;padding:1px 6px;font-size:.85em;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.decision .ant-collapse-header{font-weight:650}
-.detail-shell{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:26px;align-items:start;max-width:1560px;margin:0 auto}
-.detail-main{min-width:0}
-.decision-rail{position:sticky;top:78px;max-height:calc(100vh - 100px);overflow:auto;padding-bottom:4px}
-.detail-rail-title{font-size:12px;font-weight:800;letter-spacing:.05em;color:#66738d;margin:0 0 10px;display:flex;align-items:center;gap:8px}
-.detail-rail-title .idx{font-size:11px;font-weight:800;color:#a5b0c6;background:transparent;border:0;padding:0}
-@media(max-width:1180px){.detail-shell{grid-template-columns:minmax(0,1fr)}.decision-rail{position:static;max-height:none}}
-.zone-title{font-size:12px;font-weight:800;letter-spacing:.05em;color:#66738d;border-bottom:1px solid #edf0f6;padding-bottom:8px}
-.zone-title .idx{background:transparent;color:#a5b0c6;border:0;padding:0}
-.info-box{border-left:2px solid #dde4f1;border-top:1px solid #eef1f7;border-right:1px solid #eef1f7;border-bottom:1px solid #eef1f7;background:#fafbfe;border-radius:0 10px 10px 0}
-.evidence{padding:7px 11px;margin:6px 0;background:#f8fafd;border:1px solid #eef1f7;border-radius:9px;font-size:12px}
-.evidence .space-top{margin-top:5px}</style>
 </head>
 <body>
 <script type="application/json" id="review-data">__REVIEW_JSON__</script>
@@ -35,7 +304,6 @@
 <script src="https://unpkg.com/dayjs@1.11.13/dayjs.min.js"></script>
 <script src="https://unpkg.com/antd@5.27.4/dist/antd.min.js"></script>
 <script src="https://unpkg.com/diff2html@3.4.56/bundles/js/diff2html-ui-slim.min.js"></script>
-<script src="https://unpkg.com/echarts@5.5.1/dist/echarts.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone@7.27.6/babel.min.js"></script>
 <script type="text/babel" data-presets="react">
 (() => {
@@ -71,7 +339,7 @@ const platformText={PENDING:'待处理',CLOSED_NOT_ADOPTED:'关闭·未采纳',I
 const riskColor=r=>r==='high'?'error':r==='medium'?'warning':'success';
 const riskRank={high:0,medium:1,low:2};
 const recColor={FIX:'blue',DISMISS:'default',DEFER:'orange',NEEDS_EVIDENCE:'gold'};
-const VIEW_OPTIONS=[{value:'all',label:'全部'},{value:'high',label:'高风险'},{value:'evidence',label:'待补证据'},{value:'review',label:'需人工验收'},{value:'abnormal',label:'授权异常'},{value:'undecided',label:'未决策'}];
+const VIEW_OPTIONS=[{value:'all',label:'全部'},{value:'high',label:'高风险'},{value:'medium',label:'中风险'},{value:'low',label:'低风险'},{value:'evidence',label:'待补证据'},{value:'review',label:'需人工验收'},{value:'abnormal',label:'授权异常'},{value:'undecided',label:'未决策'},{value:'d:APPROVE',label:'将执行修复'},{value:'d:CLOSE',label:'将关闭'},{value:'d:DEFER',label:'暂缓'},{value:'d:PROVIDE_INFO',label:'退回重评'}];
 const oqNorm=q=>typeof q==='string'?{question:q,options:[]}:(q&&typeof q==='object'?{question:q.question||q.q||'',options:Array.isArray(q.options)?q.options:[]}:{question:'',options:[]});
 const signalColor=v=>v===true?'success':v===false?'error':'default';
 const signalText=(v,yes,no)=>v===true?yes:v===false?no:'未知';
@@ -80,6 +348,27 @@ const nameOf=f=>f.source.title||f.source.note?.split('\n').find(Boolean)?.slice(
 const fullTitle=f=>{const t=f.source.title||(f.analysis.rootCause||f.analysis.impact||f.analysis.trigger||nameOf(f));return String(t).replace(/\s+/g,' ').trim();};
 const diffStat=f=>(f.source.diffContext||'').split('\n').reduce((c,l)=>{if(l.startsWith('+')&&!l.startsWith('+++'))c.add++;else if(l.startsWith('-')&&!l.startsWith('---'))c.del++;return c;},{add:0,del:0});
 const countsBy=(arr,values)=>Object.fromEntries(values.map(v=>[v,arr.filter(x=>x===v).length]));
+const noteBadge=f=>{const m=/!\[([^\]]+)\]\([^)]*\)/.exec(f.source.note||'');return m?m[1].trim():null;};
+const shortTitle=f=>{if(f.source.title)return String(f.source.title);const line=(f.source.note||'').split('\n').map(s=>s.replace(/!\[[^\]]*\]\([^)]*\)/g,'').trim()).find(Boolean);return line?line.replace(/`/g,'').slice(0,160):nameOf(f);};
+const fmtTime=v=>{if(!v||typeof dayjs==='undefined')return v||'';const d=dayjs(v);return d.isValid()?d.format('YYYY-MM-DD HH:mm'):String(v);};
+const LIGHT_TOKENS={colorPrimary:'#0e7c74',colorBgLayout:'#f3f5f4',colorText:'#17201e',colorTextSecondary:'#46514e',colorError:'#c8372d',colorWarning:'#a8650b',colorSuccess:'#0e7c74',colorInfo:'#0e7c74',colorBorder:'#d3dad7',colorBorderSecondary:'#e6ebe9'};
+const DARK_TOKENS={colorPrimary:'#3db5a6',colorBgLayout:'#0e1312',colorBgContainer:'#151c1a',colorBgElevated:'#1c2422',colorText:'#e3eae7',colorTextSecondary:'#aeb9b5',colorError:'#f06a5e',colorWarning:'#e2a54a',colorSuccess:'#3db5a6',colorInfo:'#3db5a6',colorBorder:'#34403c',colorBorderSecondary:'#26302d'};
+const prefersDark=()=>{const t=document.documentElement.getAttribute('data-theme');if(t==='dark')return true;if(t==='light')return false;try{return window.matchMedia('(prefers-color-scheme: dark)').matches;}catch{return false;}};
+function useDark(){const [dark,setDark]=useState(prefersDark);useEffect(()=>{let m;try{m=window.matchMedia('(prefers-color-scheme: dark)');}catch{return;}const h=()=>setDark(prefersDark());if(m.addEventListener)m.addEventListener('change',h);else m.addListener(h);return()=>{if(m.removeEventListener)m.removeEventListener('change',h);else m.removeListener(h);};},[]);return dark;}
+const LEDGER=[['APPROVE','执行修复'],['CLOSE','关闭评论'],['DEFER','暂缓'],['PROVIDE_INFO','退回重评'],['UNDECIDED','未决策']];
+function Ledger({counts,total,humanReview,stale,invalid,onPick}){
+ const decided=total-(counts.UNDECIDED||0);
+ return <section className="panel ledger" aria-label="交接预览">
+  <div className="ledger-top">
+   <div style={{minWidth:0}}><div className="eyebrow">交接预览 · 现在生成交接会发生什么<span className="hint-pill">点下方色块可筛选</span></div>
+    <p className="ledger-sentence">{total?<>将执行 <b className="n-approve">{counts.APPROVE}</b> 条修复{counts.APPROVE>0&&<>（其中 <b>{humanReview}</b> 条执行后需人工验收）</>}，关闭 <b>{counts.CLOSE}</b> 条评论，退回重评 <b>{counts.PROVIDE_INFO}</b> 条{counts.DEFER>0&&<>，暂缓 <b>{counts.DEFER}</b> 条</>}。{counts.UNDECIDED>0?<span className="warn">还有 {counts.UNDECIDED} 条未决策，它们不会被执行。</span>:<span className="ok">全部已决策。</span>}</>:'没有需要决策的问题。'}</p></div>
+   <div className="ledger-progress"><span className="big">{decided}<small>/{total}</small></span><span className="tiny muted">已决策（含 AI 默认）</span></div>
+  </div>
+  {total>0&&<div className="ledger-bar" role="group" aria-label="按交接结果筛选问题队列">{LEDGER.filter(([k])=>counts[k]>0).map(([k,l])=><button type="button" key={k} className={'seg seg-'+k} style={{flexGrow:counts[k]}} title={'只看「'+l+'」'+counts[k]+' 条'} onClick={()=>onPick&&onPick(k)}>{counts[k]}</button>)}</div>}
+  <div className="ledger-legend">{LEDGER.map(([k,l])=><button type="button" key={k} className={'lg'+(counts[k]?'':' zero')} disabled={!counts[k]} onClick={()=>onPick&&onPick(k)}><i className={'sw seg-'+k}/>{l}<b>{counts[k]||0}</b></button>)}</div>
+  {(stale>0||invalid>0)&&<div className="ledger-alert">{stale} 条授权已过期、{invalid} 条决策无效：交接时会写成「未决策」，请在详情里重新选择。</div>}
+ </section>;
+}
 
 function normalizeDiff(raw,path){const diff=raw.replace(/\r\n?/g,'\n').trimEnd()+'\n';if(/^diff --git /m.test(diff)||/^--- /m.test(diff))return diff;if(!/^@@\s+-\d+/m.test(diff))return null;const p=String(path||'unknown-file').replace(/[\r\n]/g,'_');return `--- a/${p}\n+++ b/${p}\n${diff}`;}
 function markLines(element,source){if(!source)return false;const from=Number.isFinite(source.lineRange?.fromLine)?source.lineRange.fromLine:source.line;const to=Number.isFinite(source.lineRange?.toLine)?source.lineRange.toLine:from;if(!Number.isFinite(from))return false;let found=false;for(const cell of element.querySelectorAll('.d2h-code-linenumber,.d2h-code-side-linenumber')){const tr=cell.closest('tr');if(!tr)continue;const ns=(cell.getAttribute('data-line-number')||cell.textContent||'').trim().split(/\s+/);if(!ns.some(n=>/^\d+$/.test(n)&&Number(n)>=from&&Number(n)<=to))continue;const className=tr.className+' '+cell.className;if(source.side==='old'&&/d2h-ins/.test(className))continue;if(source.side!=='old'&&/d2h-del/.test(className))continue;tr.classList.add('review-target');found=true;}return found;}
@@ -104,7 +393,7 @@ function DecisionZone({f,decision,state,onChoose,onNote,onAnswer,onNext,onWarn})
  const doClose=()=>{if(!note.trim()){onWarn('关闭必须填写理由（可直接使用上方补充说明）');return;}onChoose('CLOSE');};
  const doInfo=()=>{if(!hasInput){onWarn('请先填写补充说明，或回答至少一个待确认问题');return;}onChoose('PROVIDE_INFO');};
  return <div className="decision decision-inline">
-  <div className="between"><div className="eyebrow">YOUR DECISION</div><Tag color={state.kind==='valid'?'success':state.kind==='stale'||state.kind==='invalid'?'error':'default'}>{state.kind==='stale'?'授权过期':state.kind==='invalid'?'决策无效':state.kind==='valid'?(state.isDefault?'有效授权 · AI默认':'有效授权'):'未授权'}</Tag></div>
+  <div className="between"><div className="eyebrow">你的决策</div><Tag color={state.kind==='valid'?'success':state.kind==='stale'||state.kind==='invalid'?'error':'default'}>{state.kind==='stale'?'授权过期':state.kind==='invalid'?'决策无效':state.kind==='valid'?(state.isDefault?'有效授权 · AI默认':'有效授权'):'未授权'}</Tag></div>
   <div className="label space-top">{label}</div>
   <TextArea rows={3} placeholder={ph} value={note} onChange={e=>onNote(e.target.value)}/>
   {scenario==='info'&&list(f.analysis.openQuestions).length>0&&<Collapse ghost size="small" className="space-top" items={[{key:'q',label:`Agent 待确认问题（${list(f.analysis.openQuestions).length}）· 可选展开回答`,children:<div>{list(f.analysis.openQuestions).map((raw,i)=>{const q=oqNorm(raw);const cur=answers[i]||'';return <div className="oq" key={i}><div className="block-text">{q.question}</div>{q.options.length>0&&<div className="row space-top">{q.options.map((op,oi)=><Button key={oi} size="small" type={cur===op?'primary':'default'} onClick={()=>onAnswer(i,op)}>{String.fromCharCode(65+oi)}. {op}</Button>)}</div>}<Input size="small" className="space-top" placeholder="自定义回答（可选）" value={cur} onChange={e=>onAnswer(i,e.target.value)}/></div>;})}</div>}]} />}
@@ -123,34 +412,26 @@ function DecisionZone({f,decision,state,onChoose,onNote,onAnswer,onNext,onWarn})
   <div className="decision-foot"><Button onClick={onNext} type="primary" ghost size="small">下一条未处理 →</Button><Button onClick={()=>onChoose('UNDECIDED')} disabled={state.kind==='undecided'} size="small" style={{marginLeft:'auto'}}>清除本条决策</Button></div>
  </div>;
 }
-function Donut({data,colors,center}){
- const el=useRef(null);const key=JSON.stringify(data);
- useEffect(()=>{if(!el.current||typeof echarts==='undefined')return;const c=echarts.init(el.current);c.setOption({color:colors,tooltip:{trigger:'item',formatter:'{b}：{c}'},series:[{type:'pie',radius:['64%','84%'],center:['50%','50%'],avoidLabelOverlap:false,label:{show:false},labelLine:{show:false},emphasis:{scale:true,scaleSize:2},data:data.filter(d=>d.value>0)}]});const r=()=>c.resize();window.addEventListener('resize',r);return()=>{window.removeEventListener('resize',r);c.dispose();};},[key]);
- return <div className="chart-body"><div ref={el} style={{width:'100%',height:'100%'}}/>{center&&<div className="donut-center">{center}</div>}</div>;
-}
-function ChartCard({title,legend,center,data,colors}){
- return <Card className="chart-card"><div className="metric-label">{title}</div><Donut data={data} colors={colors} center={center}/><div className="chart-legend">{legend.map((l,i)=><span key={i}><i style={{background:colors[i%colors.length]}}/>{l} <b>{(data.find(d=>d.name===l)||{}).value||0}</b></span>)}</div></Card>;
-}
 function FindingTable({rows,onOpen,selectedId,stateOf,onApprove,onRevert,onClose,onReject}){
  const cols=[
-  {title:'ID',dataIndex:'id',width:66,render:v=><span className="mono muted">#{v}</span>},
-  {title:'风险',width:92,render:(_,f)=><Tag color={riskColor(f.analysis.issueRisk)}>{riskText[f.analysis.issueRisk]||f.analysis.issueRisk}</Tag>},
-  {title:'AI 建议',width:96,render:(_,f)=>{const r=recommendationText[f.analysis.recommendation]||f.analysis.recommendation;return <Tag color={recColor[f.analysis.recommendation]||'default'}>{r}</Tag>;}},
-  {title:'是否需要人工验收',width:118,render:(_,f)=>f.analysis.recommendation!=='FIX'?<Tooltip title="本条不产生代码改动 · 验收不适用"><Tag>不改动</Tag></Tooltip>:reviewDefault(f)?<Tag color="error">需人工</Tag>:<Tag color="success">AI 自验</Tag>},
-  {title:'决策',width:104,render:(_,f)=>{const st=stateOf(f);const tag=<Tag color={st.kind==='valid'?(st.status==='APPROVE'?'success':'default'):st.kind==='undecided'?'warning':'error'}>{st.kind==='stale'?'授权过期':st.kind==='invalid'?'决策无效':st.kind==='valid'?statusText[st.status]+(st.isDefault?' ·AI':''):'未决策'}</Tag>;return st.isDefault?<Tooltip title="AI 推荐已默认生效：不做任何操作即视为接受，此标记表示尚未经人工点击确认。不认同可直接关闭，或点「批准」转为人工确认后再「取消批准」退回未决策。">{tag}</Tooltip>:(st.record&&st.record.note&&['CLOSE','PROVIDE_INFO'].includes(st.status))?<Tooltip title={'理由：'+st.record.note+'（该项不会执行）'}>{tag}</Tooltip>:tag;}},
-  {title:'位置',width:230,responsive:['xl'],render:(_,f)=><span className="path mono">{location(f.source)}</span>},
-  {title:'问题',width:340,ellipsis:{showTitle:false},render:(_,f)=><Tooltip title={nameOf(f)} placement="topLeft"><span className="cell-title">{nameOf(f)}</span></Tooltip>},
-  {title:'操作',width:216,fixed:'right',render:(_,f)=>{const st=stateOf(f);const humanApprove=st.kind==='valid'&&st.status==='APPROVE'&&!st.isDefault;const humanClose=st.kind==='valid'&&st.status==='CLOSE'&&!st.isDefault;return <Space size={2} onClick={e=>e.stopPropagation()}>{humanApprove?<Button size="small" type="text" style={{color:'#5b6b84'}} onClick={()=>onRevert(f.id)}>取消批准</Button>:canApprove(f)?<Button size="small" type="link" onClick={()=>onApprove(f.id)}>批准</Button>:<Tooltip title="无可执行的修复方案（待补证据 / 建议暂缓 / 方案不完整），不能直接批准；可点开详情补充信息或关闭评论"><span><Button size="small" type="link" disabled>批准</Button></span></Tooltip>}{st.kind==='valid'&&st.status==='PROVIDE_INFO'&&!st.isDefault?<Button size="small" type="text" style={{color:'#5b6b84'}} onClick={()=>onRevert(f.id)}>取消退回</Button>:<Button size="small" type="link" onClick={()=>onReject(f.id)}>退回重评</Button>}{humanClose?<Button size="small" type="text" style={{color:'#5b6b84'}} onClick={()=>onRevert(f.id)}>取消关闭</Button>:<Button size="small" type="link" danger onClick={()=>onClose(f.id)}>关闭</Button>}</Space>;}},
+  {title:'ID · 风险',dataIndex:'id',width:92,render:(v,f)=><div className="id-cell"><span className="id">#{v}</span><span className={'risk risk-'+f.analysis.issueRisk}>{riskText[f.analysis.issueRisk]||f.analysis.issueRisk}</span></div>},
+  {title:'问题',render:(_,f)=>{const badge=noteBadge(f);return <div className="q-cell"><Tooltip title={nameOf(f)} placement="topLeft"><span className="cell-title">{badge&&<span className="kind">{badge}</span>}{shortTitle(f)}</span></Tooltip><div className="path">{location(f.source)}</div></div>;}},
+  {title:'AI 建议',width:104,render:(_,f)=><span className={'rec rec-'+f.analysis.recommendation}>{recommendationText[f.analysis.recommendation]||f.analysis.recommendation}</span>},
+  {title:'人工验收',width:96,render:(_,f)=>f.analysis.recommendation!=='FIX'?<Tooltip title="本条不产生代码改动 · 验收不适用"><span className="acc acc-none">不改动</span></Tooltip>:reviewDefault(f)?<span className="acc acc-human">需人工</span>:<span className="acc acc-auto">AI 自验</span>},
+  {title:'决策',width:112,render:(_,f)=>{const st=stateOf(f);const k=st.kind==='valid'?st.status:st.kind==='undecided'?'UNDECIDED':'BAD';const tag=<Tag className={'dtag dtag-'+k+(st.isDefault?' is-ai':'')}>{st.kind==='stale'?'授权过期':st.kind==='invalid'?'决策无效':st.kind==='valid'?statusText[st.status]+(st.isDefault?' ·AI':''):'未决策'}</Tag>;return st.isDefault?<Tooltip title="AI 推荐已默认生效：不做任何操作即视为接受，此标记表示尚未经人工点击确认。不认同可直接关闭，或点「批准」转为人工确认后再「取消批准」退回未决策。">{tag}</Tooltip>:(st.record&&st.record.note&&['CLOSE','PROVIDE_INFO'].includes(st.status))?<Tooltip title={'理由：'+st.record.note+'（该项不会执行）'}>{tag}</Tooltip>:tag;}},
+  {title:'操作',width:204,fixed:'right',render:(_,f)=>{const st=stateOf(f);const humanApprove=st.kind==='valid'&&st.status==='APPROVE'&&!st.isDefault;const humanClose=st.kind==='valid'&&st.status==='CLOSE'&&!st.isDefault;return <Space size={2} className="op" onClick={e=>e.stopPropagation()}>{humanApprove?<Button size="small" type="text" className="btn-undo" onClick={()=>onRevert(f.id)}>取消批准</Button>:canApprove(f)?<Button size="small" type="link" onClick={()=>onApprove(f.id)}>批准</Button>:<Tooltip title="无可执行的修复方案（待补证据 / 建议暂缓 / 方案不完整），不能直接批准；可点开详情补充信息或关闭评论"><span><Button size="small" type="link" disabled>批准</Button></span></Tooltip>}{st.kind==='valid'&&st.status==='PROVIDE_INFO'&&!st.isDefault?<Button size="small" type="text" className="btn-undo" onClick={()=>onRevert(f.id)}>取消退回</Button>:<Button size="small" type="link" onClick={()=>onReject(f.id)}>退回重评</Button>}{humanClose?<Button size="small" type="text" className="btn-undo" onClick={()=>onRevert(f.id)}>取消关闭</Button>:<Button size="small" type="link" danger onClick={()=>onClose(f.id)}>关闭</Button>}</Space>;}},
  ];
- return <Table className="finding-table" size="small" rowKey="id" columns={cols} dataSource={rows} pagination={{size:'small',defaultPageSize:pgInit,showSizeChanger:true,pageSizeOptions:PG_OPTIONS,showTotal:t=>`共 ${t} 条`,onShowSizeChange:(_,size)=>pgSave(size),onChange:(_,size)=>pgSave(size)}} scroll={{x:846}} onRow={f=>({onClick:()=>onOpen(f.id)})} rowClassName={f=>String(f.id)===selectedId?'row-selected':''}/>;
+ return <Table className="finding-table" size="small" rowKey="id" columns={cols} dataSource={rows} pagination={{size:'small',defaultPageSize:pgInit,showSizeChanger:true,pageSizeOptions:PG_OPTIONS,showTotal:t=>`共 ${t} 条`,onShowSizeChange:(_,size)=>pgSave(size),onChange:(_,size)=>pgSave(size)}} scroll={{x:900}} onRow={f=>({onClick:()=>onOpen(f.id)})} rowClassName={f=>'risk-'+f.analysis.issueRisk+(String(f.id)===selectedId?' row-selected':'')}/>;
 }
 function App(){
  const [selectedId,setSelectedId]=useState(String((findings[0]||closed[0]||{}).id||''));
  const [detailOpen,setDetailOpen]=useState(false);
  const [closeTarget,setCloseTarget]=useState(null);
  const [closeReason,setCloseReason]=useState('');
- const openDetail=id=>{setSelectedId(String(id));setDetailOpen(true);};
- const [diffView,setDiffView]=useState('split');
+ const [seen,setSeen]=useState(false);
+ const openDetail=id=>{setSelectedId(String(id));setDetailOpen(true);setSeen(true);};
+ const [diffView,setDiffViewRaw]=useState(()=>{try{const v=localStorage.getItem('ai-review:diff-view');if(v==='split'||v==='unified')return v;}catch{}return window.innerWidth<900?'unified':'split';});
+ const setDiffView=v=>{setDiffViewRaw(v);try{localStorage.setItem('ai-review:diff-view',v);}catch{}};
  const [handoffOpen,setHandoffOpen]=useState(false);
  const [filters,setFilters]=useState({q:'',view:'all'});
  const [storageAvailable,setStorageAvailable]=useState(true);
@@ -165,7 +446,7 @@ function App(){
  const effective=f=>{const d=decisionState(f);return d.kind==='valid'?d.status:'UNDECIDED';};
  const selectedState=selectedActive?decisionState(selectedActive):{kind:'undecided',status:'UNDECIDED'};
  const effectiveNote=f=>{const d=decisions[String(f.id)];if(d&&typeof d.note==='string'&&d.note.trim())return d.note.trim();const st=decisionState(f);return st.isDefault&&st.status==='CLOSE'?aiReason(f):'';};
- const filtered=findings.filter(f=>{const q=filters.q.trim().toLocaleLowerCase(),v=filters.view||'all';if(v==='high'&&f.analysis.issueRisk!=='high')return false;if(v==='evidence'&&f.analysis.assessment!=='NEEDS_EVIDENCE')return false;if(v==='review'&&!(f.analysis.recommendation==='FIX'&&reviewDefault(f)))return false;if(v==='abnormal'&&!['stale','invalid'].includes(decisionState(f).kind))return false;if(v==='undecided'&&effective(f)!=='UNDECIDED')return false;return!q||[f.id,f.source.path,f.source.note,f.source.title,f.source.suggestion,f.analysis.trigger,f.analysis.impact,f.analysis.rootCause,f.analysis.proposal?.summary,f.source.author].filter(Boolean).join(' ').toLocaleLowerCase().includes(q);});
+ const filtered=findings.filter(f=>{const q=filters.q.trim().toLocaleLowerCase(),v=filters.view||'all';if(['high','medium','low'].includes(v)&&f.analysis.issueRisk!==v)return false;if(v.startsWith('d:')&&effective(f)!==v.slice(2))return false;if(v==='evidence'&&f.analysis.assessment!=='NEEDS_EVIDENCE')return false;if(v==='review'&&!(f.analysis.recommendation==='FIX'&&reviewDefault(f)))return false;if(v==='abnormal'&&!['stale','invalid'].includes(decisionState(f).kind))return false;if(v==='undecided'&&effective(f)!=='UNDECIDED')return false;return!q||[f.id,f.source.path,f.source.note,f.source.title,f.source.suggestion,f.analysis.trigger,f.analysis.impact,f.analysis.rootCause,f.analysis.proposal?.summary,f.source.author].filter(Boolean).join(' ').toLocaleLowerCase().includes(q);});
  const ordered=[...filtered].sort((a,b)=>(riskRank[a.analysis.issueRisk]??9)-(riskRank[b.analysis.issueRisk]??9));
  const aCounts=countsBy(findings.map(f=>f.analysis.assessment),['CONFIRMED','DISMISSED','NEEDS_EVIDENCE']);
  const rCounts=countsBy(findings.map(f=>f.analysis.issueRisk),['high','medium','low']);
@@ -182,34 +463,54 @@ function App(){
  // Editing a stale note must never refresh its authorization fingerprint.
  const updateNote=note=>{if(!selectedActive)return;const id=String(selectedActive.id);persist({...decisions,[id]:{status:'UNDECIDED',...decisions[id],note}});};
  const setAnswer=(i,val)=>{if(!selectedActive)return;const id=String(selectedActive.id);persist({...decisions,[id]:{...decisions[id],answers:{...((decisions[id]||{}).answers||{}),[i]:val}}});};
- const nextUndecided=()=>{const i=findings.findIndex(f=>String(f.id)===selectedId);const next=findings.slice(i+1).concat(findings.slice(0,i)).find(f=>effective(f)==='UNDECIDED');if(next)setSelectedId(String(next.id));else message.info('没有更多未决策问题');};
+ const nextUndecided=()=>{const seq=[...findings].sort((a,b)=>(riskRank[a.analysis.issueRisk]??9)-(riskRank[b.analysis.issueRisk]??9));const i=seq.findIndex(f=>String(f.id)===selectedId);const next=seq.slice(i+1).concat(seq.slice(0,i)).find(f=>effective(f)==='UNDECIDED');if(next)setSelectedId(String(next.id));else message.info('没有更多未决策问题');};
  const gotoStep=d=>{if(!ordered.length)return;const i=ordered.findIndex(f=>String(f.id)===selectedId);const nx=ordered[Math.min(Math.max((i<0?0:i)+d,0),ordered.length-1)];if(nx)setSelectedId(String(nx.id));};
  const clearAllDecisions=()=>{setDecisions({});try{localStorage.removeItem(storageKey);}catch{}message.success('已恢复 AI 默认决策 · 人工记录已清空');};
  const resetPreview=(()=>{let toApprove=0,toClose=0,toNone=0,reversal=0;for(const f of findings){const def=aiDefault(f);const cur=effective(f);if(def==='APPROVE')toApprove++;else if(def==='CLOSE')toClose++;else toNone++;if(def==='APPROVE'&&cur!=='APPROVE')reversal++;}return{toApprove,toClose,toNone,reversal};})();
  const copyEnvelope=async()=>{if(!findings.length)return;try{await navigator.clipboard.writeText(envelopeText);message.success('交接 JSON 已复制');}catch{setHandoffOpen(true);message.warning('无法写入剪贴板，请在弹窗中手动复制');}};
-  return <ConfigProvider locale={{Pagination:{items_per_page:'条/页'}}} theme={{token:{colorPrimary:'#5567ca',colorBgLayout:'#f5f7fb',colorText:'#253047',borderRadius:9,fontSize:13}}}>
- <header className="header"><div className="brand">review<em>.</em>desk</div><span className="header-desc">AI Code Review / Decision Console</span>
+ const pickView=v=>{updateFilter('view',v);const el=document.querySelector('.queue-card');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});};
+ const navRef=useRef(null);
+ navRef.current=e=>{if(!detailOpen||!selectedActive||e.metaKey||e.ctrlKey||e.altKey)return;const t=e.target;if(t&&t.closest&&t.closest('input,textarea,select,[contenteditable="true"],.diff-canvas,.ant-select'))return;if(e.key==='ArrowLeft'||e.key==='k'){e.preventDefault();gotoStep(-1);}else if(e.key==='ArrowRight'||e.key==='j'){e.preventDefault();gotoStep(1);}};
+ useEffect(()=>{const h=e=>navRef.current&&navRef.current(e);window.addEventListener('keydown',h);return()=>window.removeEventListener('keydown',h);},[]);
+ const reasonRef=useRef(null);
+ const dark=useDark();
+ const approveHuman=envelope.decisions.filter(d=>d.status==='APPROVE'&&d.requiresHumanAcceptance).length;
+ const totalComments=review.summary?.total??findings.length+closed.length;
+ const RISKS=[['high','高风险'],['medium','中风险'],['low','低风险']];
+  return <ConfigProvider locale={{Pagination:{items_per_page:'条/页'}}} theme={{algorithm:dark?antd.theme.darkAlgorithm:antd.theme.defaultAlgorithm,token:{...(dark?DARK_TOKENS:LIGHT_TOKENS),borderRadius:6,fontSize:13,fontFamily:'var(--font-ui)'}}}>
+ <header className="header"><div className="brand">review<em>.</em>desk</div><span className="header-desc">AI 代码评审 · 人工决策台</span>
   <div className="header-actions"><Popconfirm title="恢复 AI 默认决策？" description={`将删除 ${Object.keys(decisions).length} 条人工决策。恢复后：${resetPreview.toApprove} 条将随交接执行（AI 默认批准${resetPreview.reversal>0?`，其中 ${resetPreview.reversal} 条此前被你否决过、将重新获得授权`:''}）、${resetPreview.toClose} 条 AI 默认关闭、${resetPreview.toNone} 条回到未决策。不可恢复。`} okText="确认恢复" okButtonProps={{danger:true}} cancelText="取消" onConfirm={clearAllDecisions}><Button danger disabled={!Object.keys(decisions).length}>恢复 AI 默认决策</Button></Popconfirm><Button type="primary" disabled={!findings.length} onClick={()=>setHandoffOpen(true)}>生成交接</Button></div>
  </header>
- <section className="intro"><div className="eyebrow">Merge Request / Review Session</div><div className="between" style={{alignItems:'start',flexWrap:'wrap'}}>
-  <div><h1>MR !{review.iid??review.mergeRequestId} · 代码评审</h1><div className="row"><strong>{review.repo}</strong><Tag>{review.sourceBranch||'未知源分支'}</Tag><span className="muted">→</span><Tag>{review.targetBranch||'未知目标分支'}</Tag></div></div>
-  <div style={{textAlign:'right'}}><div className="mono small muted wrap">{review.reviewKey}</div>{safeLink(review.mrUrl)&&<a href={safeLink(review.mrUrl)} target="_blank" rel="noopener noreferrer">打开 Merge Request ↗</a>}</div>
- </div><div className="preflight"><Tag color={signalColor(review.headMatches)}>Head {signalText(review.headMatches,'一致','不一致')}</Tag><Tag color={signalColor(review.preflight?.dirty==null?null:!review.preflight.dirty)}>工作区 {signalText(review.preflight?.dirty,'有未提交修改','干净')}</Tag><Tag color={signalColor(review.preflight?.branchMatchesSource)}>分支 {signalText(review.preflight?.branchMatchesSource,'匹配','不匹配')}</Tag>{review.selection?.mode==='ids'&&<Tag color="warning">指定 ID 试点评审 · {review.selection.requestedIds?.length||0}</Tag>}{!storageAvailable&&<Tag color="warning">本地存储不可用 · 请导出决策</Tag>}{!!review.preflight?.dirtyFiles?.length&&<Tooltip title={review.preflight.dirtyFiles.join('\n')}><Tag>修改文件 {review.preflight.dirtyFiles.length}</Tag></Tooltip>}</div></section>
- <section className="charts">
-  <ChartCard title="评估状态" colors={['#5567ca','#e5534b','#f0a020']} data={[{name:'确认',value:aCounts.CONFIRMED},{name:'驳回',value:aCounts.DISMISSED},{name:'待证据',value:aCounts.NEEDS_EVIDENCE}]} legend={['确认','驳回','待证据']} center={<span><b style={{fontSize:22,fontWeight:760}}>{findings.length}</b><div className="tiny muted">Active</div></span>}/>
-  <ChartCard title="问题风险分布" colors={['#e5534b','#f0a020','#3aa675']} data={[{name:'高风险',value:rCounts.high},{name:'中风险',value:rCounts.medium},{name:'低风险',value:rCounts.low}]} legend={['高风险','中风险','低风险']} center={<span><b style={{fontSize:22,fontWeight:760,color:'#e5534b'}}>{rCounts.high}</b><div className="tiny muted">高风险</div></span>}/>
-  <ChartCard title="决策完成" colors={['#5567ca','#e6e9f2']} data={[{name:'已决策',value:decided},{name:'未决策',value:Math.max(0,findings.length-decided)}]} legend={['已决策','未决策']} center={<span><b style={{fontSize:22,fontWeight:760}}>{progress}%</b><div className="tiny muted">{decided}/{findings.length}</div></span>}/>
-  <Card className="chart-card"><div className="metric-label">评审发现</div><div className="chart-body" style={{display:'flex',flexDirection:'column',justifyContent:'center'}}><div className="metric-number">{review.summary?.total??findings.length+closed.length}</div><div className="metric-foot">Active {findings.length} · Closed {closed.length}</div><div className="metric-foot">stale {staleCount} · invalid {invalidCount}</div></div></Card>
+ <section className="intro"><div style={{minWidth:0}}><div className="eyebrow">Merge Request 评审</div>
+   <h1>{review.repo}<span className="iid">!{review.iid??review.mergeRequestId}</span></h1>
+   <div className="intro-meta"><span className="branch">{review.sourceBranch||'未知源分支'}</span><span aria-hidden="true">→</span><span className="branch">{review.targetBranch||'未知目标分支'}</span>{review.generatedAt&&<span>评审生成于 {fmtTime(review.generatedAt)}</span>}<span className="mono wrap">{review.reviewKey}</span></div></div>
+  {safeLink(review.mrUrl)&&<a className="mr-link" href={safeLink(review.mrUrl)} target="_blank" rel="noopener noreferrer">打开 Merge Request ↗</a>}
+ </section>
+ <section className="summary">
+  <Ledger onPick={k=>pickView(k==='UNDECIDED'?'undecided':'d:'+k)} counts={envelopeCounts} total={findings.length} humanReview={approveHuman} stale={staleCount} invalid={invalidCount}/>
+  <section className="panel facts" aria-label="问题构成与环境检查">
+   <div><div className="eyebrow">问题构成 · 共 {totalComments} 条评论{closed.length?`，${closed.length} 条平台已关闭`:''}</div>
+    <div className="mix space-top">{RISKS.map(([k,l])=><React.Fragment key={k}><button type="button" className="mix-pick" title={'只看'+l} onClick={()=>pickView(k)}>{l}</button><span className="bar"><i className={'fill-'+k} style={{width:(findings.length?rCounts[k]/findings.length*100:0)+'%'}}/></span><span className="n">{rCounts[k]}</span></React.Fragment>)}</div>
+    <div className="assess">Agent 判断：确认 <b>{aCounts.CONFIRMED}</b> · 驳回 <b>{aCounts.DISMISSED}</b> · 待补证据 <b>{aCounts.NEEDS_EVIDENCE}</b></div></div>
+   <div><div className="eyebrow">环境检查</div><div className="checks space-top">
+    <span className={'check '+signalColor(review.headMatches)}>Head {signalText(review.headMatches,'一致','不一致')}</span>
+    <span className={'check '+signalColor(review.preflight?.dirty==null?null:!review.preflight.dirty)}>工作区 {signalText(review.preflight?.dirty,'有未提交修改','干净')}</span>
+    <span className={'check '+signalColor(review.preflight?.branchMatchesSource)}>分支 {signalText(review.preflight?.branchMatchesSource,'匹配','不匹配')}</span>
+    {review.selection?.mode==='ids'&&<span className="check warning">指定 ID 试点评审 · {review.selection.requestedIds?.length||0}</span>}
+    {!storageAvailable&&<span className="check warning">本地存储不可用 · 请导出决策</span>}
+    {!!review.preflight?.dirtyFiles?.length&&<Tooltip title={review.preflight.dirtyFiles.join('\n')}><span className="check">修改文件 {review.preflight.dirtyFiles.length}</span></Tooltip>}
+   </div></div>
+  </section>
  </section>
  <main>
-  <Card className="queue-card"><div className="between" style={{padding:'2px 2px 11px'}}><div className="row"><strong style={{fontSize:14}}>问题队列</strong><Tag>{filtered.length} / {findings.length}</Tag></div>
-   <div className="row" style={{gap:7,justifyContent:'flex-end'}}><Input.Search allowClear placeholder="搜索问题、文件或 ID…" value={filters.q} onChange={e=>updateFilter('q',e.target.value)} style={{width:210}} size="small"/><Select size="small" value={filters.view} onChange={v=>updateFilter('view',v)} style={{width:132}} options={VIEW_OPTIONS}/></div>
-  </div><FindingTable rows={ordered} onOpen={openDetail} selectedId={selectedId} stateOf={decisionState} onApprove={id=>decideFor(id,'APPROVE')} onRevert={id=>decideFor(id,'UNDECIDED')} onClose={id=>setCloseTarget({id,mode:'CLOSE'})} onReject={id=>setCloseTarget({id,mode:'PROVIDE_INFO'})}/>{!filtered.length&&<Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="没有符合条件的问题"/>}</Card>
-  {!!closed.length&&<div className="queue-closed"><div className="between queue-closed-label"><span>已关闭 · 无需决策</span><span>{closed.length}</span></div><Table className="finding-table" size="small" rowKey="id" pagination={{size:'small',defaultPageSize:5,hideOnSinglePage:true}} dataSource={closed} scroll={{x:620}} onRow={f=>({onClick:()=>openDetail(f.id)})} rowClassName={f=>String(f.id)===selectedId?'row-selected':''} columns={[{title:'ID',dataIndex:'id',width:70,render:v=><span className="mono muted">#{v}</span>},{title:'平台',width:150,render:(_,f)=><Tag>{platformText[f.source.platformInterpretation]||'已关闭'}</Tag>},{title:'位置',width:260,responsive:['lg'],render:(_,f)=><span className="path mono">{location(f.source)}</span>},{title:'问题',ellipsis:true,render:(_,f)=><span className="cell-title">{nameOf(f)}</span>}]} /></div>}
+  <section className="queue-card"><div className="queue-toolbar"><div className="row"><span className="queue-title">问题队列</span><span className="count">{filtered.length} / {findings.length}</span><span className="tiny muted">按风险排序 · 点行看详情</span>{(filters.view!=='all'||filters.q)&&<Button size="small" type="link" onClick={()=>setFilters({q:'',view:'all'})}>清除筛选</Button>}</div>
+   <div className="row"><Input.Search allowClear placeholder="搜索问题、文件或 ID…" value={filters.q} onChange={e=>updateFilter('q',e.target.value)} style={{width:220}} size="small"/><Select size="small" value={filters.view} onChange={v=>updateFilter('view',v)} style={{width:132}} options={VIEW_OPTIONS}/></div>
+  </div><FindingTable rows={ordered} onOpen={openDetail} selectedId={seen?selectedId:''} stateOf={decisionState} onApprove={id=>decideFor(id,'APPROVE')} onRevert={id=>decideFor(id,'UNDECIDED')} onClose={id=>setCloseTarget({id,mode:'CLOSE'})} onReject={id=>setCloseTarget({id,mode:'PROVIDE_INFO'})}/>{!filtered.length&&<Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="没有符合条件的问题"/>}</section>
+  {!!closed.length&&<div className="queue-closed"><div className="between queue-closed-label"><span>已关闭 · 无需决策</span><span>{closed.length}</span></div><Table className="finding-table" size="small" rowKey="id" pagination={{size:'small',defaultPageSize:5,hideOnSinglePage:true}} dataSource={closed} scroll={{x:620}} onRow={f=>({onClick:()=>openDetail(f.id)})} rowClassName={f=>seen&&String(f.id)===selectedId?'row-selected':''} columns={[{title:'ID',dataIndex:'id',width:80,render:v=><span className="path">#{v}</span>},{title:'平台',width:150,render:(_,f)=><Tag>{platformText[f.source.platformInterpretation]||'已关闭'}</Tag>},{title:'位置',width:260,responsive:['lg'],render:(_,f)=><span className="path mono">{location(f.source)}</span>},{title:'问题',ellipsis:true,render:(_,f)=><span className="cell-title">{shortTitle(f)}</span>}]} /></div>}
   <Modal className="detail-modal" open={detailOpen&&!!selected} onCancel={()=>setDetailOpen(false)} width="100vw" style={{maxWidth:'100vw',top:0,padding:0}} footer={null} destroyOnClose closable={false}>
-   {selected&&<div><div className="detail-topbar"><div style={{minWidth:0}}><div className="eyebrow">{selectedClosed?'CLOSED · READ ONLY':'ACTIVE FINDING'} / #{selected.id}</div></div><div className="row" style={{marginLeft:'auto'}}>{selectedActive&&<><Tag color={riskColor(selectedActive.analysis.issueRisk)}>{riskText[selectedActive.analysis.issueRisk]}</Tag><Tag color={recColor[selectedActive.analysis.recommendation]||'default'}>{recommendationText[selectedActive.analysis.recommendation]||selectedActive.analysis.recommendation}</Tag>{canApprove(selectedActive)&&<Tag color={reviewDefault(selectedActive)?'error':'success'}>{reviewDefault(selectedActive)?'执行后需人工验收':'AI 自验即可'}</Tag>}</>}{selectedActive&&<><Button size="small" type="text" disabled={ordered.findIndex(f=>String(f.id)===selectedId)<=0} onClick={()=>gotoStep(-1)}>←</Button><span className="muted tiny mono" style={{minWidth:40,textAlign:'center'}}>{ordered.findIndex(f=>String(f.id)===selectedId)+1} / {ordered.length}</span><Button size="small" type="text" disabled={ordered.findIndex(f=>String(f.id)===selectedId)>=ordered.length-1} onClick={()=>gotoStep(1)}>→</Button><span style={{width:1,height:18,background:'#e3e9f1'}}/></>}{selectedClosed&&<span className="muted tiny" style={{marginRight:6}}>已关闭 · 只读</span>}<Button onClick={()=>setDetailOpen(false)}>收起队列</Button></div></div>
+   {selected&&<div><div className="detail-topbar"><div style={{minWidth:0}}><div className="eyebrow">{selectedClosed?'已关闭 · 只读':'待决策'} / #{selected.id}</div></div><div className="row" style={{marginLeft:'auto'}}>{selectedActive&&<><span className={'risk risk-'+selectedActive.analysis.issueRisk}>{riskText[selectedActive.analysis.issueRisk]}</span><span className={'rec rec-'+selectedActive.analysis.recommendation}>{recommendationText[selectedActive.analysis.recommendation]||selectedActive.analysis.recommendation}</span>{canApprove(selectedActive)&&<span className={'acc '+(reviewDefault(selectedActive)?'acc-human':'acc-auto')}>{reviewDefault(selectedActive)?'执行后需人工验收':'AI 自验即可'}</span>}<span className="topbar-sep"/></>}{selectedActive&&<><Button size="small" type="text" disabled={ordered.findIndex(f=>String(f.id)===selectedId)<=0} title="上一条（← 或 K）" onClick={()=>gotoStep(-1)}>←</Button><span className="muted tiny mono" style={{minWidth:40,textAlign:'center'}}>{ordered.findIndex(f=>String(f.id)===selectedId)+1} / {ordered.length}</span><span className="kbd-hint" aria-hidden="true"><kbd>←</kbd><kbd>→</kbd> 切换</span><Button size="small" type="text" disabled={ordered.findIndex(f=>String(f.id)===selectedId)>=ordered.length-1} title="下一条（→ 或 J）" onClick={()=>gotoStep(1)}>→</Button><span className="topbar-sep"/></>}{selectedClosed&&<span className="muted tiny" style={{marginRight:6}}>已关闭 · 只读</span>}<Button onClick={()=>setDetailOpen(false)}>返回队列</Button></div></div>
     <div className="detail-shell"><div className="detail-main">
-     <div className="zone"><div className="zone-title"><span className="idx">01</span>问题与代码变更 · Context</div>
+     <div className="zone"><div className="zone-title"><span className="idx">01</span>问题与代码变更</div>
       <h2 className="finding-title" dangerouslySetInnerHTML={{__html:mdInline(fullTitle(selected))}}/>
       <div className="row muted small wrap" style={{gap:8}}><span className="mono">{review.repo}</span><span>·</span><span>MR !{review.iid??review.mergeRequestId}</span>{selectedActive&&selectedActive.analysis.proposal&&selectedActive.analysis.proposal.owner&&<><span>·</span><span>{selectedActive.analysis.proposal.owner}</span></>}<span>·</span><span className="path mono">{location(selected.source)}</span></div>
       <div className="detail-grid space-top">
@@ -226,27 +527,27 @@ function App(){
       </div>}]} />
      </div>
      {selectedActive&&<>
-      <div className="zone"><div className="zone-title"><span className="idx">02</span>Agent 分析与处理建议 · Analysis</div>
-       <div className="row" style={{gap:6}}><Tag color={recColor[selectedActive.analysis.recommendation]||'default'}>{recommendationText[selectedActive.analysis.recommendation]||selectedActive.analysis.recommendation}</Tag><Tag color={riskColor(selectedActive.analysis.issueRisk)}>{riskText[selectedActive.analysis.issueRisk]}</Tag></div>
-       {selectedActive.analysis.assessment!=='NEEDS_EVIDENCE'&&<div className="block-text space-top" style={{fontSize:14,fontWeight:600}}>{plain(selectedActive.analysis.rootCause||selectedActive.analysis.proposal&&selectedActive.analysis.proposal.summary)}</div>}
+      <div className="zone"><div className="zone-title"><span className="idx">02</span>Agent 分析与处理建议</div>
+       <div className="row" style={{gap:10}}><span className={'rec rec-'+selectedActive.analysis.recommendation}>{recommendationText[selectedActive.analysis.recommendation]||selectedActive.analysis.recommendation}</span><span className="muted small">{assessmentText[selectedActive.analysis.assessment]||selectedActive.analysis.assessment}</span></div>
+       {selectedActive.analysis.assessment!=='NEEDS_EVIDENCE'&&<div className="block-text space-top lead">{plain(selectedActive.analysis.rootCause||selectedActive.analysis.proposal&&selectedActive.analysis.proposal.summary)}</div>}
        {selectedActive.analysis.assessment==='NEEDS_EVIDENCE'&&<div className="kb space-top"><div className="kb-title">调查已达仓库知识边界 · 需外部事实</div><div className="detail-grid"><div><div className="label">当前可确定</div><div className="block-text">{plain(selectedActive.analysis.rootCause||selectedActive.analysis.trigger)}</div></div><div><div className="label">缺少的外部信息</div><ul className="plain-list">{list(selectedActive.analysis.openQuestions).map((q,i)=><li key={i}>{oqNorm(q).question}</li>)}{!list(selectedActive.analysis.openQuestions).length&&<li className="muted">未列明</li>}</ul></div><div><div className="label">为何影响判断</div><div className="block-text">{plain(selectedActive.analysis.impact)}</div></div><div><div className="label">需要人工提供</div><div className="block-text">后端实现 / 外部接口行为 / 产品意图等仓库外事实；在 03 区一句话补充即可，Agent 将据此重新评估整个 Finding，而非机械填表。</div></div></div></div>}
-       {selectedActive.analysis.proposal&&<div className="proposal space-top"><div className="between"><span className="eyebrow">RECOMMENDED APPROACH</span><Tag color={riskColor(selectedActive.analysis.proposal.fixRisk)}>修复风险 · {riskText[selectedActive.analysis.proposal.fixRisk]||selectedActive.analysis.proposal.fixRisk}</Tag></div><div className="proposal-title">{selectedActive.analysis.proposal.summary}</div><div className="block-text">{selectedActive.analysis.proposal.approach}</div><div className="label space-top">涉及文件</div><div className="row">{list(selectedActive.analysis.proposal.files).map((fp,i)=><Tag key={i}>{fp}</Tag>)}</div><div className="detail-grid space-top"><div><div className="label">预期变更</div><ul className="plain-list">{list(selectedActive.analysis.proposal.changes).map((c,i)=><li key={i}>{c}</li>)}{!list(selectedActive.analysis.proposal.changes).length&&<li className="muted">未提供</li>}</ul></div><div><div className="label">验证要求</div><ul className="plain-list">{list(selectedActive.analysis.proposal.verification).map((v,i)=><li key={i}>{v}</li>)}</ul></div></div></div>}
+       {selectedActive.analysis.proposal&&<div className="proposal space-top"><div className="between"><span className="eyebrow">建议方案</span><span className={'risk risk-'+selectedActive.analysis.proposal.fixRisk}>修复风险 · {riskText[selectedActive.analysis.proposal.fixRisk]||selectedActive.analysis.proposal.fixRisk}</span></div><div className="proposal-title">{selectedActive.analysis.proposal.summary}</div><div className="block-text">{selectedActive.analysis.proposal.approach}</div><div className="label space-top">涉及文件</div><div className="row">{list(selectedActive.analysis.proposal.files).map((fp,i)=><Tag key={i}>{fp}</Tag>)}</div><div className="detail-grid space-top"><div><div className="label">预期变更</div><ul className="plain-list">{list(selectedActive.analysis.proposal.changes).map((c,i)=><li key={i}>{c}</li>)}{!list(selectedActive.analysis.proposal.changes).length&&<li className="muted">未提供</li>}</ul></div><div><div className="label">验证要求</div><ul className="plain-list">{list(selectedActive.analysis.proposal.verification).map((v,i)=><li key={i}>{v}</li>)}</ul></div></div></div>}
        <div className="label space-top">证据 · {list(selectedActive.analysis.evidence).length}</div>{list(selectedActive.analysis.evidence).map((ev,i)=><div className="evidence" key={i}><div className="row"><Tag>{evidenceText[ev.kind]||ev.kind}</Tag><span className="path mono">{ev.ref}</span></div><div className="block-text space-top">{ev.summary}</div></div>)}{!list(selectedActive.analysis.evidence).length&&<span className="muted small">无证据记录</span>}
       </div>
      </>}
     </div>
     <aside className="decision-rail">
      {selectedActive?<>
-      <div className="detail-rail-title"><span className="idx">03</span>人工决策 · Decision</div>
+      <div className="detail-rail-title"><span className="idx">03</span>人工决策</div>
        <DecisionZone f={selectedActive} decision={selectedDecision} state={selectedState} onChoose={chooseDecision} onNote={updateNote} onAnswer={setAnswer} onNext={nextUndecided} onWarn={m=>message.warning(m)}/>
      </>:<Alert type="info" showIcon message="平台已关闭 · 无需决策。只读展示，不进入 LocalStorage 授权或交接。"/>}
     </aside>
     </div></div>}
   </Modal>
  </main>
- <Modal open={!!closeTarget} title={closeTarget&&closeTarget.mode==='PROVIDE_INFO'?'退回重评 · 填写理由':'关闭评论 · 填写理由'} width={520} okText={closeTarget&&closeTarget.mode==='PROVIDE_INFO'?'提交':'确认关闭'} cancelText="取消" onCancel={()=>{setCloseTarget(null);setCloseReason('');}} onOk={()=>{if(!closeReason.trim()){message.warning(closeTarget&&closeTarget.mode==='PROVIDE_INFO'?'退回重评必须填写理由':'关闭必须填写理由');return;}decideFor(closeTarget.id,closeTarget.mode,closeReason.trim());setCloseTarget(null);setCloseReason('');}}><TextArea rows={3} value={closeReason} onChange={e=>setCloseReason(e.target.value)} placeholder={closeTarget&&closeTarget.mode==='PROVIDE_INFO'?'为什么退回重评：agent 误读上下文 / 触发条件不可达 / 结论与事实不符…（理由将交给 Agent 重新评估整条 Finding）':'为什么关闭：误报 / 已在他处解决 / 本 MR 不处理（另单跟）…'}/></Modal>
+ <Modal rootClassName="reason-modal" afterOpenChange={o=>{if(o)setTimeout(()=>reasonRef.current&&reasonRef.current.focus(),0);}} open={!!closeTarget} title={closeTarget&&closeTarget.mode==='PROVIDE_INFO'?'退回重评 · 填写理由':'关闭评论 · 填写理由'} width={520} okText={closeTarget&&closeTarget.mode==='PROVIDE_INFO'?'提交':'确认关闭'} cancelText="取消" onCancel={()=>{setCloseTarget(null);setCloseReason('');}} onOk={()=>{if(!closeReason.trim()){message.warning(closeTarget&&closeTarget.mode==='PROVIDE_INFO'?'退回重评必须填写理由':'关闭必须填写理由');return;}decideFor(closeTarget.id,closeTarget.mode,closeReason.trim());setCloseTarget(null);setCloseReason('');}}><TextArea ref={reasonRef} onKeyDown={e=>{if(e.key==='Enter'&&(e.metaKey||e.ctrlKey)){e.preventDefault();const b=document.querySelector('.reason-modal .ant-modal-footer .ant-btn-primary');if(b)b.click();}}} rows={3} value={closeReason} onChange={e=>setCloseReason(e.target.value)} placeholder={closeTarget&&closeTarget.mode==='PROVIDE_INFO'?'为什么退回重评：agent 误读上下文 / 触发条件不可达 / 结论与事实不符…（理由将交给 Agent 重新评估整条 Finding）':'为什么关闭：误报 / 已在他处解决 / 本 MR 不处理（另单跟）…'}/><div className="tiny muted" style={{marginTop:6}}>⌘ / Ctrl + Enter 提交</div></Modal>
  <Modal open={handoffOpen} title="Decision Envelope" onCancel={()=>setHandoffOpen(false)} width={760} footer={<Space><Button onClick={()=>setHandoffOpen(false)}>关闭</Button><Button type="primary" onClick={copyEnvelope}>复制 JSON</Button></Space>}>
-  <p className="small muted">每个 active finding 生成一条决策；stale / invalid 写为 UNDECIDED，closed 不进入交接。</p><div className="row" style={{margin:'12px 0'}}><Tag>修复 {envelopeCounts.APPROVE}</Tag><Tag color="success">关闭 {envelopeCounts.CLOSE}</Tag><Tag>暂缓 {envelopeCounts.DEFER}</Tag><Tag color="warning">重评 {envelopeCounts.PROVIDE_INFO}</Tag><Tag>未决策 {envelopeCounts.UNDECIDED}</Tag></div><TextArea className="handoff-text" readOnly rows={16} value={envelopeText}/>
+  <p className="small muted">每个 active finding 生成一条决策；stale / invalid 写为 UNDECIDED，closed 不进入交接。</p>{envelopeCounts.UNDECIDED>0&&<Alert type="warning" showIcon message={'有 '+envelopeCounts.UNDECIDED+' 条未决策（含授权过期、决策无效），交接后 Agent 不会处理它们。'}/>}<div className="envelope-counts"><Tag className="dtag dtag-APPROVE">修复 {envelopeCounts.APPROVE}</Tag><Tag className="dtag dtag-CLOSE">关闭 {envelopeCounts.CLOSE}</Tag><Tag className="dtag dtag-DEFER">暂缓 {envelopeCounts.DEFER}</Tag><Tag className="dtag dtag-PROVIDE_INFO">重评 {envelopeCounts.PROVIDE_INFO}</Tag><Tag className="dtag dtag-UNDECIDED">未决策 {envelopeCounts.UNDECIDED}</Tag></div><TextArea className="handoff-text" readOnly rows={16} value={envelopeText}/>
  </Modal>
  </ConfigProvider>;
 }
