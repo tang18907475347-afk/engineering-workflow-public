@@ -53,7 +53,7 @@ python3 -m pytest skills/product-design/tests -q  # 需要 pytest
 ```
 
 ## 7. 已决定的事项
-详见 [docs/CHANGES-0.10.md](docs/CHANGES-0.10.md)（每一项的理由、改动文件与回退方法）。摘要：
+详见 [docs/CHANGES-0.10.md](docs/CHANGES-0.10.md)（D1–D14）与 [docs/CHANGES-0.11.md](docs/CHANGES-0.11.md)（D16–D17），每一项的理由、改动文件与回退方法都在里面。摘要：
 
 | # | 决定 |
 |---|---|
@@ -72,4 +72,4 @@ python3 -m pytest skills/product-design/tests -q  # 需要 pytest
 | D13 | skill-architecture 补“模型相对性”：只有提案，待在独立来源审阅 |
 | D14 | 术语速查 `shared/glossary.md`：只做白话翻译，以契约为准；同步到 7 个业务 skill |
 | D16 | `review.html` 视图层重做：只改视觉与导航，决策语义、Envelope、localStorage 键、测试依赖的选择器与文案不变；新增的交互只是导航与筛选，不是决策快捷方式 |
-| D17 | 新增 `work-retrospective`：复盘用户的请求与实际工作，独立能力，不接入 Router，只在用户明确要求时使用；数据采集由接入方负责，skill 只读统一事件格式 |
+| D17 | 新增 `work-retrospective`：复盘用户的请求与实际工作，独立能力，不接入 Router，只在用户明确要求时使用，默认不写文件；会话记录由用户或其 agent 按统一事件格式提供，skill 不自带采集器 |

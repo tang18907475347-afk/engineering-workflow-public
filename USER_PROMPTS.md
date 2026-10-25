@@ -53,7 +53,7 @@ Router 按用户真实动作选择能力，不按 URL 或单据类型机械路�
 
 `skill-architecture` 不会由 Router 自动派发。要使用它时，直接说「用 skill-architecture 审计……」或调用 `/skill-architecture`。
 
-`work-retrospective` 同样不会自动派发，也不会在任务收尾时自己跑。要使用它时，直接说「用 work-retrospective 复盘……」并说清范围：一个需求、一个任务、一个分支，或一段时间（上周、上个月、两个日期之间）。
+`work-retrospective` 同样不会自动派发，也不会在任务收尾时自己跑。要使用它时，直接说「用 work-retrospective 复盘……」并说清范围：一个需求、一个任务、一个分支，或一段时间（上周、上个月、两个日期之间）。会话记录需要你或你的 agent 提供；没有时只能基于项目产物和版本历史，并会在报告里说明缺了什么。
 
 ## 4. 通用提示词技巧
 

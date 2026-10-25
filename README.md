@@ -27,7 +27,7 @@
 | 需求文档采集 | 移除 | `product-design` 的文档采集入口，落位契约见 `references/clarification/acquisition.md` |
 | 内部打包/发布配置 | 移除 | 按 `scripts/package-plugin.py` 的清单格式接自己的分发通道 |
 
-**仍然开箱可用**：`product-engineering` 路由、`product-reality` / `product-design` / `implementation-strategy` / `test-readiness-review` 的全部契约与校验脚本、`ai-code-review` 的离线确定性工具（artifact / patch / check-envelope / HTML 决策页）、`skill-architecture`、`work-retrospective`、Figma 采集（MCP 或 `FIGMA_TOKEN`）、结构校验与打包脚本。
+**仍然开箱可用**：`product-engineering` 路由、`product-reality` / `product-design` / `implementation-strategy` / `test-readiness-review` 的全部契约与校验脚本、`ai-code-review` 的离线确定性工具（artifact / patch / check-envelope / HTML 决策页）、`skill-architecture`、Figma 采集（MCP 或 `FIGMA_TOKEN`）、结构校验与打包脚本。
 
 **前置条件**：Python 3.9+（仅标准库）；可选 PyYAML（更严格的 frontmatter 解析）、ffmpeg（视频证据抽帧）、playwright-cli（`ai-code-review/tests/ui_behavior_check.sh`）。
 
@@ -45,7 +45,7 @@
 | `ai-code-review`          | 先验证 MR 上的 AI 评审意见并产出 review.json + 本地 HTML 决策页；人工决策后只执行授权项，平台反馈独立处理；支持多轮复审 | `.engineering/work/ai-review/`；scratch，不写入 canonical；反馈写回 MR                    |
 | `bugfix`                  | 缺陷单据的采集、分析、修复、回写（平台客户端不随副本提供，见下节）                                     | `.engineering/issues/`                                                               |
 | `skill-architecture`      | 判断已有 Skill / Plugin 的真实架构、责任分配与变更尺度；独立能力，不接入 Router                        | 独立诊断；不依赖 `.engineering/` 工作区                                                   |
-| `work-retrospective`      | 复盘：按用户指定的范围（需求 / 任务 / 分支 / 任意时间段），对照用户的请求与实际工作，找出走偏与走反并归因；独立能力，不接入 Router，只在点名时使用 | 读项目产物、版本历史与会话记录；不改任何文件 |
+| `work-retrospective`      | 复盘：按用户指定的范围（需求 / 任务 / 分支 / 任意时间段），对照用户的请求与实际工作，找出走偏与走反并归因；独立能力，不接入 Router，只在点名时使用 | 读项目产物、版本历史与会话记录；默认不写文件 |
 
 Router 只负责选择与交接。典型路径是：
 
@@ -85,7 +85,7 @@ AI 评审问题也不单独建设知识体系：它直接消费 MR、Diff、Repo
 | Skill                | 作用                                                   | 说明                                                                            |
 | -------------------- | ------------------------------------------------------ | ------------------------------------------------------------------------------- |
 | `skill-architecture` | 判断已有 Skill / Plugin 的真实架构、责任分配与变更尺度 | 独立诊断能力，不接入 Router，也不参与产品工程链路；放在插件内只为统一管理与部署 |
-| `work-retrospective` | 复盘用户的请求与实际工作，找出走偏与走反并归因，产出对插件、用户请求方式与项目知识的改进建议 | 独立能力，不接入 Router，只在用户明确要求时使用；范围由用户指定；数据采集由接入方负责 |
+| `work-retrospective` | 复盘用户的请求与实际工作，找出走偏与走反并归因，产出对插件、用户请求方式与项目知识的改进建议 | 独立能力，不接入 Router，只在用户明确要求时使用；范围由用户指定；会话记录需用户或其 agent 提供，没有时只用项目产物与版本历史 |
 
 `skill-architecture` 直接读取被审对象，不依赖 `.engineering/` 工作区，也不依赖本插件的其他 Skill；其 `references/` 按原仓库结构保留。需要时直接点名使用，Router 不会自动路由到它。
 
