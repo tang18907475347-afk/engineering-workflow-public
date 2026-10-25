@@ -34,7 +34,7 @@ description: 处理 MR 上由云端 Agent 生成的 AI Code Review 意见：先�
 - **仓库 + MR**：`repo` 使用仓库路径（如 `acme/webapp`），`mergeRequestId` 使用**项目级 `id`**，不是列表里的 `iid`。缺 `repo` 时可从目标 worktree 的 `origin` 推断。
 - **MR 平台后端可用**：`<平台身份查询>` 有身份，`<平台后端状态查询>` 已授权；失效时按宿主提供的平台通道重新授权，不绕过平台客户端直连。
 - **本地代码**：优先在当前 MR 的 source branch / worktree 上核对。`headMatches=false` 是信号，不是自动拒绝：执行前必须核对 finding 的代码锚点、行为和证据是否仍适用，不能只比较 SHA。
-- **可选上下文**：`.engineering/product/`、`.engineering/intelligence/`、`.engineering/requirements/<req>/clarification/`、`.engineering/design/`。存在就按需读取；**没有 PRD、Clarification、Requirement Workspace 或 Handoff 不构成阻塞**。
+- **可选上下文**：`.engineering/context.md`（业务上下文）、`.engineering/product/`、`.engineering/intelligence/`、`.engineering/requirements/<req>/clarification/`、`.engineering/requirements/<req>/workspace/plan.md` 的「验收与保持」（`AC-n` / `P-n`）、`.engineering/design/`。存在就按需读取；finding 是否成立依赖产品意图时，优先引用「验收与保持」里的编号；**没有 PRD、Clarification、Requirement Workspace 或 Handoff 不构成阻塞**。用户纠正了你对业务的理解时，按 `references/workspace-and-ownership.md` 第 9 节写入 `context.md` 的纠偏记录。
 - **MR 状态**：已合并 / 已关闭的 MR 仍可只读分析，但平台可能不再接受反馈；先确认状态，再决定是否只做报告。
 
 ## Finding 不是事实

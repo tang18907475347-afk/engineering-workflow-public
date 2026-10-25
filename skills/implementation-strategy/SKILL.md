@@ -25,6 +25,8 @@ Product Intent 可来自 PRD、设计资料、ticket、当前对话、明确 Hum
 - 高恢复成本、跨文件且值得复用的代码机制，可先查 `.engineering/intelligence/` 相关分片；简单查找直接读源码。命中是线索，关键事实仍以 Current Repo 核验；stale hit 按缓存契约修正或删除。需求取舍、产品决定和验证计划留在 Workspace。
 - `.engineering/product/`、`design/`、`clarification/` 相关且可信时引用稳定 ID 或路径，不重抄长文。没有 Baseline 不等于证据不足，可以直接观察 Repo / Runtime。
 - 消费 handoff 时区分 Binding 与 Adjustable，记录实际消费的 handoff-id；PROPOSED 不自动成为要求。
+- `requirements/<req>/reality.md`（需求级现状摘要）存在时，用它的主链路、行为契约与候选 Preserve（`PC-n`）作为工程落点与 Preserve 的起点，你依赖的事实仍按 Current Repo 核验；不存在时直接调查 Repo。
+- `.engineering/context.md`（业务上下文）存在时先读：业务规则与术语会影响方案与验证口径。
 
 ## 可执行交付
 Guidance 的结构随任务与实际读者选择，可以是直接答复，也可以是计划、落点说明或独立任务；不把 PRD 章节机械转换为 Task。
@@ -32,6 +34,8 @@ Guidance 的结构随任务与实际读者选择，可以是直接答复，也�
 执行者需要理解目标行为、当前机制、真正 owner、必要修改、关键不变项，以及如何验证。已确定且影响编码或验收的事实应转为工程输入，例如实际配置 / seed、固定文案、状态转换、调用语义或事件参数；仅给 schema 或“按 PRD 实现”不能替代这些信息。保留来源指针用于核查，不要求执行者重新作已完成的产品决策，也不禁止其在发现缺口或漂移时回源。
 
 验证应证明目标行为和关键 Preserve，而不是只证明命令成功。根据实际风险选择 unit、integration、browser、runtime、截图或 contract 等证据，并说明必要的账号、数据、环境或 mock 从何获得。代理断言不能冒充未观察到的真实行为；缺口如实保留，不按测试类型自动转人工。
+
+持久化 Workspace 时，`plan.md` 有两节固定接口：开头的「给执行者」，以及「验收与保持」（`AC-n` / `P-n`，每个任务注明覆盖哪些）。前者让不加载本 Skill 的执行者也知道在哪里停、怎么记录；后者让执行者、TRR 与 bugfix 用同一份期望，而不是各自重新推导。格式见 [references/workspace-format.md](references/workspace-format.md)；交付前运行 `scripts/check_plan.py` 检查覆盖关系。其余章节仍按任务自由组织。
 
 Phase / Task 只在真实依赖、交付、ownership 或验证边界值得拆分时出现。产品或协议决定、外部依赖、高返工选择确需人裁决时，说明待决问题、影响和当前能否继续；不强制分类或建立 Gate。高影响风险需要可执行的处置与验证，不要求绑定一个不存在的 Phase。
 

@@ -78,6 +78,6 @@
 ## 8. 与提测审查的交接
 本 Skill 的验证只证明“这条 finding 的处理是否成立”，不等于整个 Requirement 达到提测条件。
 
-如果用户接下来问“能不能提测”，交给 `test-readiness-review`，并让它独立读取：Clarification / Design（如有）、Workspace（如有）、Current Repo / Current Diff、本次修复与验证证据。
+如果用户接下来问“能不能提测”，交给 `test-readiness-review`，并让它独立读取：Clarification / Design（如有）、Workspace（如有，含「验收与保持」）、Current Repo / Current Diff、本次修复与验证证据。
 
 不要把本 Skill 的 `IMPLEMENTED` / `FIXED` 直接当成 `READY_FOR_TEST`；TRR 需要判断整个交付范围，而不是单条评审意见。

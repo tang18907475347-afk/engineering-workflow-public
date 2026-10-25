@@ -9,7 +9,7 @@ description: 在用户明确要求判断当前 Requirement 是否可以提测、
 - **Outcome**：独立确认当前交付的 Expected、Actual、Preserved、Proven 是否闭环。
 - **Done**：已确认需求完整落地、实际改动未越界、应保持行为未被破坏、开发侧必要结论已有足够证据。
 - **Next consumer**：`READY_FOR_TEST` → QA；`BLOCK` → 原实现上下文修复后，在 fresh context 重新 Review。
-- **Stop**：只审查和裁决；不重新澄清需求、重新设计方案、直接修改代码、修改 Workspace 或代替 QA。
+- **Stop**：只审查和裁决；不重新澄清需求、重新设计方案、直接修改代码、修改 Workspace 或代替 QA。唯一的写入是本次的审查记录（见「审查记录」）。
 
 这个 Skill 是独立的交付审查能力，不是 Implementation Strategy 的另一个执行模式，也不是新的持久状态或生命周期阶段。Implementation Strategy 内部的 Completion Review 负责实施侧 Workspace Reconciliation；本 Skill 消费完成后的产物，提供独立的第二次判断。
 
@@ -24,6 +24,9 @@ Requirement scope 按以下顺序解析：用户显式指定的 requirement slug
 - `.engineering/requirements/<requirement-slug>/workspace/`
 - `.engineering/design/`（相关设计决定 / handoff，设计驱动交付时）
 - `.engineering/product/`（相关 Current Reality，按需）
+- `.engineering/requirements/<requirement-slug>/reality.md`（需求级现状摘要，如有）
+- `.engineering/requirements/<requirement-slug>/reviews/`（上一轮审查记录，如有）
+- `.engineering/context.md`（业务上下文，如有：业务规则可能影响 Preserve 与验收口径）
 - Current Repo / 当前 worktree
 - Current Git Diff
 - 可用的测试、runtime、visual evidence
@@ -70,7 +73,9 @@ Review 不能把实现者在 Workspace、提交说明或历史对话里的“已
 
 设计驱动交付时，`design/module-handoffs/<module-id>/<handoff-id>.md` 的 `Binding` 是 Expected 的来源；`Adjustable` 中的 `PROPOSED` 不是已接受要求，除非它被当前交付明确采纳并记录。消费者记录实际消费的 handoff-id；若 handoff 被 supersede，只重新检查与当前交付相关的部分。**Review 期间发现新的、此前未被引用的关键事实时，也要检查它是否影响当前 Expected；不能因为旧 handoff 没有引用它而忽略。**
 
-这份 Contract 只用于本次 Review：不新增 artifact、不建立新 schema、不持久化第二份 requirement truth、不重新解释或扩写需求。如果当前有效输入无法形成唯一的产品行为、工程边界或完成证据要求，BLOCK，并指出缺少的决策或 artifact。没有 Clarification / Baseline / Handoff 时，不等于无法形成 Expected；直接从可用来源形成即可。
+**Workspace 有「验收与保持」时，以它为起点**：其中的 `AC-n` / `P-n` 就是实现方、TRR 与 bugfix 共用的期望清单。你仍然独立判断：逐条核对它与 Clarification、已接受设计决定是否一致，并检查是否漏掉了已确认的要求；清单与上游冲突时按第 7 步处理，不因为清单存在就省掉核对。没有这一节（或没有 Workspace）时，按原方式从可用来源形成 Expected。没有 Workspace、由 Product Design 直接完成的局部实现，设计记录里的「验收与保持」同样作为起点。
+
+这份 Contract 只用于本次 Review：不新增 Expected 的 artifact、不建立新 schema、不持久化第二份 requirement truth、不重新解释或扩写需求。如果当前有效输入无法形成唯一的产品行为、工程边界或完成证据要求，BLOCK，并指出缺少的决策或 artifact。没有 Clarification / Baseline / Handoff 时，不等于无法形成 Expected；直接从可用来源形成即可。
 
 ### 2. Trace Every Confirmed Delta
 对每一项 confirmed delta 临时追踪：Confirmed Requirement → Expected Behavior → Implementation Anchor → Verification Evidence。
@@ -97,7 +102,7 @@ confirmed behavior 缺失、实现不一致、未确认的产品语义被固化�
 普通 symbol、单文件事实和 caller/consumer 列表直接读源码。只有遇到符合缓存准入条件的高成本跨文件 owner/dataflow 问题时，才按需查 `.engineering/intelligence/`；命中后仍回到 Current Repo 核验。
 
 ### 5. Check Preserved Behavior
-Preserve 是独立的一等对象。只从 Workspace 的 Preserve 与 Actual Diff 出发，扫描本次实际触碰到、且明确不应改变的既有行为：Changed Owner / State / Dataflow → Which preserved behavior can be affected? → Did Actual change it? → Is there sufficient evidence it still holds?
+Preserve 是独立的一等对象。只从 Workspace 的 Preserve（`P-n`；没有时可参考 `reality.md` 的候选 `PC-n`，并说明它们尚未被确认）与 Actual Diff 出发，扫描本次实际触碰到、且明确不应改变的既有行为：Changed Owner / State / Dataflow → Which preserved behavior can be affected? → Did Actual change it? → Is there sufficient evidence it still holds?
 
 重点检查 shared owner、default behavior、fallback、error、empty 和已有用户路径是否被新行为覆盖。若改动触碰共享行为，而现有材料不足以判断 Preserve 是否成立，且该判断会影响是否进 QA，BLOCK。不要把检查扩成全仓 blast-radius audit。
 
@@ -220,13 +225,24 @@ BLOCK
 
 禁止：
 
-- 修改代码、测试、Workspace 或任何项目 artifact；
+- 修改代码、测试、Workspace 或任何项目 artifact（审查记录除外）；
 - 自动修复 blocker；
 - 代替用户提交、回写单据或发布；
 - 发现问题后自己验证修复并宣布 READY_FOR_TEST；
-- 创建持久化 Review 报告或第二份 requirement truth。
+- 创建第二份 requirement truth（唯一允许写入的是下面的「审查记录」）。
 
 正确闭环是：Test Readiness Review → BLOCK + evidence + required action → STOP → Original implementation context → fix → Fresh Review Context → review again。
+
+宿主支持子代理时，可以把审查交给一个不继承实现对话的子代理来做，以保证 fresh context；不支持时，请用户在新会话中运行。
+
+### 审查记录
+给出 Verdict 后，写一份审查记录：`.engineering/requirements/<requirement-slug>/reviews/<YYYYMMDD>-<short-commit>.md`（同一天同一 commit 再审时加 `-2`）。这是本 Skill 唯一的写入。
+
+- **为什么要写**：BLOCK 之后回到原实现上下文修复时，不必靠用户转述；复审时能逐条确认上一轮的阻塞项；QA 与 bugfix 也能引用。
+- **它是什么**：某一次审查在某个 commit 上的结论，**不是当前事实**，不与 Workspace 或代码争夺权威。写入后不修改；新的审查写新的一份。
+- **内容**：只写 Verdict、Blockers（与上面 BLOCK 表格相同）与 QA Handoff，以及审查基线（commit / diff 范围）。不复述实现过程，不复制 Expected Contract。
+- **复审时**：先读最近一份记录，逐条确认上一轮的阻塞项是否已闭合；然后仍按完整流程独立审查——上一轮的结论不是当前状态的证据。
+- 不需要持久化的场景（用户明确说不留记录、或没有可确定的 requirement slug）时，只在对话中交付。
 
 ## Stop Rules and Non-goals
 以下情况直接 BLOCK，并说明缺失的决策或证据：

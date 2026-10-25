@@ -51,7 +51,7 @@ Entry → Required input / prerequisite → Primary action
 
 禁止「把所有页面全截图一遍」、hover / tooltip / modal / edge state 的穷举采集。
 
-触发与否的判断（必触发 / 按需 / 不强制）以 SKILL.md「Runtime Experience Observation」段为准，本文件不重复定义。
+触发与否的判断（必触发 / 按需 / 不强制）以 [deep-mode.md](deep-mode.md)「Runtime Experience Observation」段为准，本文件不重复定义。
 
 ## Required Evidence
 Question 创建时先想清楚：什么证据能在声明边界内回答它。例如：

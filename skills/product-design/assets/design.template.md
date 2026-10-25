@@ -7,6 +7,11 @@
 - Scope / Intent / Outcome:
 - Evidence read（引用了哪些 `E-*` / `C-*` / `B-*`，哪些是任务内新观察）:
 
+## Problem Definition
+
+<!-- 业务定位 / 痛点（带证据）/ 聚焦与本次不解决 / 根因；以及用户确认结果，未确认时写「问题定义未经用户确认」。
+     方法自选，可用 references/design/problem-definition.md 的默认做法。 -->
+
 ## Upstream References
 
 <!-- Provenance / navigation：路径 + 稳定 ID。不是依赖图，也不构成新鲜度证明。 -->
@@ -31,15 +36,16 @@
 
 ## Design Decisions
 
-<!-- 每条决定包含 Status（PROPOSED / ACCEPTED / SUPERSEDED）与 Basis（DECISION / EVIDENCE / DERIVATION / DESIGN_JUDGMENT）。
+<!-- 每条决定都写 Status（PROPOSED / ACCEPTED / SUPERSEDED）；Status=ACCEPTED 时必填 Authority / Accepted-At / Basis（DECISION / EVIDENCE / DERIVATION / DESIGN_JUDGMENT）；
+     Basis=DERIVATION 时必填 Derived-From 与“为什么严格必要”；其余字段有相关信息时再写。
      只有 ACCEPTED 决定、其严格必要推导、由接受决定直接定义的 Preserve / Verification Obligation 可以进入工程 Binding。
      Decision / Basis / Authority / Tradeoff / 证伪方式。
      机制已确认的根因闭合写 ROOT FIX 或 `BLOCKED BY PHASE CONSTRAINT` + 当前 MITIGATION；
      未确认时写 `Diagnosis supported · Root cause unresolved · Next evidence: …` 是合法结果。 -->
 
-| #   | Decision | Status | Basis | Authority | Tradeoff | 证伪 / Validation |
-| --- | -------- | ------ | ----- | --------- | -------- | ----------------- |
-|     |          |        |       |           |          |                   |
+| #   | Decision | Status | Authority · Accepted-At · Basis（ACCEPTED 时） | Tradeoff | 证伪 / Validation |
+| --- | -------- | ------ | ---------------------------------------------- | -------- | ----------------- |
+|     |          |        |                                                |          |                   |
 
 ## Alternatives
 

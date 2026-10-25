@@ -10,6 +10,8 @@
 
 **第一次使用？** 先看 [用户提示词教程](USER_PROMPTS.md)，里面有按能力划分的可复制提示词和授权边界。
 
+**要修改这个插件？** 先读 [AGENTS.md](AGENTS.md)：改动尺度、两条底线、受保护内容与决策流程都在那里。
+
 ## 关于这份副本
 
 这是从内部实践版本整理出来的**脱敏副本**：文档、契约与判断规则完整保留，与特定公司环境绑定的部分已经拆掉。
@@ -33,11 +35,11 @@
 
 | Skill                     | 作用                                                                                                   | 主要落位                                                                                  |
 | ------------------------- | ------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------- |
-| `product-engineering`     | Router：按用户真实动作选择一个能力；不自动串行推进                                                     | 只读 `.engineering/`                                                                      |
-| `product-reality`         | 理解代码机制、产品行为、用户路径与证据边界；轻量问题直接回答，Baseline / Spec 由 Scope、Rigor 与持续消费价值决定 | `.engineering/product/`、`.engineering/intelligence/`                                     |
+| `product-engineering`     | Router：按用户真实动作选择一个能力；不自动串行推进；`req_status.py` 只读列出各需求进度 | 只读 `.engineering/` |
+| `product-reality`         | 理解代码机制、产品行为、用户路径与证据边界；入口先分流：代码问题直接回答，为需求理解现状写 `reality.md`，深度模式（Baseline / Spec）规则在 `references/product/deep-mode.md` | `.engineering/product/`、`.engineering/intelligence/`、`requirements/<req>/reality.md` |
 | `product-design`          | 需求理解、产品语义澄清、目标体验设计；纯按确定设计稿实现默认由 Coding Agent 承担                       | `.engineering/requirements/<req>/clarification/`、`.engineering/design/`、`modules/<id>/` |
-| `implementation-strategy` | 把目标与 Current Repo 结合，产出可执行的 Requirement Workspace                                         | `.engineering/requirements/<req>/workspace/`                                              |
-| `test-readiness-review`   | 独立判断交付是否达到 `READY_FOR_TEST`，给出证据边界                                                    | 只读，不持久化报告                                                                        |
+| `implementation-strategy` | 把目标与 Current Repo 结合，产出可执行的 Requirement Workspace；`plan.md` 固定「给执行者」与「验收与保持」两节，`check_plan.py` 检查覆盖关系 | `.engineering/requirements/<req>/workspace/` |
+| `test-readiness-review`   | 独立判断交付是否达到 `READY_FOR_TEST`，给出证据边界；从「验收与保持」出发并独立核对 | 只读；唯一写入是每次审查一份、写后不改的审查记录 `requirements/<req>/reviews/` |
 | `ai-code-review`          | 先验证 MR 上的 AI 评审意见并产出 review.json + 本地 HTML 决策页；人工决策后只执行授权项，平台反馈独立处理；支持多轮复审 | `.engineering/work/ai-review/`；scratch，不写入 canonical；反馈写回 MR                    |
 | `bugfix`                  | 缺陷单据的采集、分析、修复、回写（平台客户端不随副本提供，见下节）                                     | `.engineering/issues/`                                                               |
 | `skill-architecture`      | 判断已有 Skill / Plugin 的真实架构、责任分配与变更尺度；独立能力，不接入 Router                        | 独立诊断；不依赖 `.engineering/` 工作区                                                   |
@@ -90,11 +92,14 @@ AI 评审问题也不单独建设知识体系：它直接消费 MR、Diff、Repo
 ```text
 <project-root>/.engineering/
 ├── PROJECT.md
+├── context.md                     # 业务上下文：跨需求，含纠偏记录
 ├── product/                       # Current Reality
 ├── requirements/<req>/
 │   ├── sources/
 │   ├── clarification/
-│   └── workspace/
+│   ├── reality.md                 # 需求级现状摘要（派生视图）
+│   ├── workspace/
+│   └── reviews/                   # 提测审查记录（写后不改）
 ├── design/                        # Desired Reality
 │   └── module-handoffs/<module-id>/<handoff-id>.md
 ├── modules/<module-id>/
@@ -107,6 +112,8 @@ AI 评审问题也不单独建设知识体系：它直接消费 MR、Diff、Repo
 - 不是每个任务都创建全部目录；按需创建最小结构。
 - `PROJECT.md` 只做导航，不拥有状态。
 - `product/` 是 canonical 产品证据；`intelligence/` 是可丢弃的代码机制缓存。两者可以引用同一段源码，不要求统一 schema，也不要求只保留一份。
+- `context.md` 记录跨需求的业务上下文：用户的每次纠正当场写入「纠偏记录」，模型自己的推断不写入（规则见 `workspace-and-ownership.md` 第 9 节）。
+- `reality.md` 是面向一个需求的派生视图，只引用定位，供设计找痛点、实施计划定 Preserve、提测审查做回归；「验收与保持」是执行者、TRR 与 bugfix 共用的期望清单。
 
 ## Shared contracts
 
@@ -124,6 +131,8 @@ AI 评审问题也不单独建设知识体系：它直接消费 MR、Diff、Repo
 Status: PROPOSED | ACCEPTED | SUPERSEDED
 Basis:  DECISION | EVIDENCE | DERIVATION | DESIGN_JUDGMENT
 ```
+
+字段按需必填：所有决定写 Statement / Status；`ACCEPTED` 时必须有 Authority、Accepted-At、Basis；`Basis: DERIVATION` 时必须有 Derived-From 与“为什么严格必要”。其余字段有相关信息时再写。
 
 `DERIVED` 不是 Status。一个推导结论本身仍可能是 Proposed / Accepted / Superseded。只有以下内容能进入工程 Binding：
 
@@ -195,6 +204,10 @@ python3 -m pytest skills/product-design/tests -q
 # AI Code Review 脚本测试（unittest，不访问外部服务）
 python3 -m unittest discover -s skills/ai-code-review/tests -v
 
+# Workspace 覆盖检查与需求进度脚本测试（unittest）
+python3 -m unittest discover -s skills/implementation-strategy/tests -v
+python3 -m unittest discover -s skills/product-engineering/tests -v
+
 # 打包插件
 python3 scripts/package-plugin.py --target all    # 两个都打
 python3 scripts/package-plugin.py --target qoder  # 只打 Qoder → dist/qoder/
@@ -210,6 +223,12 @@ python3 skills/product-reality/scripts/check_baseline.py <project>/.engineering/
 ```
 
 ## 设计原则
+
+**两条底线**（每次改动插件时逐条核对；0.10 起写入）：
+1. **每个 Skill 都能独立运行。** 上游产物只用来加速，不是前提：每个消费点都写明“有就用，没有就回到原始来源（PRD、代码、diff）”，并在产出中说明缺了什么、按什么处理。
+2. **不受模型强弱限制：弱模型能被提升，强模型不被束缚。** 新增内容按三类写：目标与质量标准只写要达到什么；接口、状态与工具只规定格式并尽量由机器检查；方法辅助一律写成“默认这样做，你有能达到同样质量的做法时可以不用，说明即可”。只有授权与机器消费的格式写成必须遵守。
+3. **每个改动都在一个弱模型和一个强模型上实测**；效果不好或起反作用时单独回退，不牵连其他改动。验证方法与每项改动的回退位置见 [docs/CHANGES-0.10.md](docs/CHANGES-0.10.md)。
+
 
 - **统一知识的消费与修正，不统一模型的判断过程。**
 - **明确事实与决定的权威，不把 Skill 变成权威本身。**

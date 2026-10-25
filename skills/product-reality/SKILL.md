@@ -1,6 +1,6 @@
 ---
 name: product-reality
-description: 用于代码机制调查、跨文件业务链路、状态与 owner 追踪、产品行为 / 用户路径重建、复刻或结构性重构所需的现状理解，以及证据与覆盖边界判断。不用于目标体验设计或工程实现。
+description: 用于代码机制调查、跨文件业务链路、状态与 owner 追踪、为某个需求理解现状（需求级现状摘要 reality.md）、产品行为 / 用户路径重建、复刻或结构性重构所需的现状理解，以及证据与覆盖边界判断。不用于目标体验设计或工程实现。
 ---
 
 # Product Reality
@@ -10,6 +10,19 @@ description: 用于代码机制调查、跨文件业务链路、状态与 owner 
 - **Done**：当前问题所需的代码机制或产品事实已被证据支持，边界已说明。
 - **Next consumer**：Product Design、Implementation Strategy、Test Readiness Review、Coding Agent。
 - **Stop**：不设计目标态、不制定工程方案、不实现代码；不把每个问题都升级成完整 Baseline，也不把最小调查当成默认工作形态。
+
+## 先分流：这次是哪条路径
+按用户目的选路径，而不是按 Skill 被激活这件事本身。三条路径的证据纪律相同，差别只在完整性边界与产物：
+
+|用户目的|路径|产物|
+|---|---|---|
+|代码问题：某个行为在哪里实现、谁拥有、调用链、状态写入、失败分支|**轻量 A：代码机制**（下文）|直接回答；通过准入的昂贵事实写入 `intelligence/`；零写入是合法结果|
+|为某个需求理解现状，供设计、实施计划、提测审查使用|**轻量 B：需求级现状摘要**（下文）|`.engineering/requirements/<req>/reality.md`|
+|系统 / 模块 / 业务域级理解、复刻、迁移、审计、结构性重构，或需要 Coverage、Design Readiness、Replica-Ready 判断|**深度模式**|`product/` Baseline 或 `spec/`；**先完整读完 [references/product/deep-mode.md](references/product/deep-mode.md)**|
+
+- 用户目的不明确、且不同路径会导致明显不同的工作量时，说明你的判断并让用户确认；能唯一推断就直接走。
+- 轻量路径中发现局部问题的根因跨越模块时，主动扩大调查，不被「局部」标签限制；但如果目标本身变成了复刻、重构或完整理解，说明理由并经用户同意后再转入深度模式。
+- 先读 `.engineering/context.md`（业务上下文，如有）：它告诉你业务词在代码里叫什么、哪些规则不能违反、过去哪里理解错过。没有这个文件不影响调查。
 
 ## 两种知识形态
 同一套系统可以有两种理解产物。它们服务不同消费者，允许引用同一段源码：
@@ -21,60 +34,11 @@ description: 用于代码机制调查、跨文件业务链路、状态与 owner 
 
 **来源重叠不等于知识重复。** 同一段源码可以同时支撑一条代码机制缓存和一条产品证据；前者关心「改哪里」，后者关心「它证明了什么产品行为、证据边界是什么」。不强制两种产物使用同一 schema，也不要求只保存一份。
 
-## 调查契约
-Product Reality 根据用户目的确定交付，根据目标 Scope 确定完整性边界，根据所需调查严格度确定证据和行为恢复标准。
+需求级现状摘要 `reality.md` 不是第三种知识：它是面向一个需求的**派生视图**，只引用上面两种产物或源码中的定位，不另立事实。
 
-- **Scope（目标范围）**：用户选定的逆向边界——单链路、模块、业务域或完整系统。不默认全产品；Replica-Ready 可应用于任何 Scope。
-- **Rigor（调查严格度）**：证据与行为恢复需要达到的程度。`Design-Ready` 与 `Replica-Ready` 是相应任务的完成判断，不是严格度等级本身。
-- **Purpose → Deliverable**：诊断→答案；优化/理解→模型；复刻/重建→实现规格（spec）。交付形态由目的决定，不由 Scope 或 Rigor 决定。
+## 核心不变量（两条路径共用）
+编号沿用原编号；1–4、12、13 是产品建模不变量，见 [references/product/deep-mode.md](references/product/deep-mode.md)。
 
-完整 Baseline 的完整性边界是 **Baseline Scope**（本次系统现实调查覆盖的范围）；Replica-Ready 的完整性边界是 **Spec Target Scope**（独立 Coding Agent 需要重建的范围）。调查范围可以大于复刻范围，两者不要求相等；各自只由对应产物签发，不能互相替代或独立裁决。同一 Inventory item 分别记录 `Baseline Relation` 与 `Spec Relation`；调查范围与复刻范围不合并，跨边界依赖不自动进入复刻范围。每个 Scope 的 disposition 独立；一个 Scope 的 `COVERED` 不能替代另一个 Scope 的判断。
-
-Scope 与 Rigor 独立组合；同一 Scope 可用不同 Rigor，同一 Rigor 可应用于不同 Scope。Agent 从任务意图自主判断 purpose / scope / rigor / deliverable，只有实质歧义才询问；预设对用户可见、可调整，不要求用户每次填写，也没有固定 Mode 或流程矩阵。不得因 Skill 被激活而默认执行系统级逆向、完整覆盖或生成固定产物；也不得把最小调查、只覆盖核心路径或零持久化当成默认工作形态。
-
-完成标准不是「Baseline 建好了」或「Coverage 达标了」，而是「当前知识是否足以支持用户要求的下一步」。Coverage、Baseline、Design Readiness 与 Replica-Ready 服务于这个判断，不自行定义完成。
-
-对于 Replica-Ready，必须充分发现 Spec Target Scope 内的行为契约，恢复能够影响重建正确性的业务规则、状态、接口、数据、副作用及异常路径。所有已发现且相关的行为必须有明确处置（COVERED / EXEMPT / OPEN），不允许静默遗漏；OPEN 项必须进入 Unknown Registry 并标明是否 blocking。**Inventory COVERED 不等于行为契约已恢复**：一个 in-scope 能力可以对应多个 `B-*`，必须恢复每个 `B-*` 的条件、状态、分支、副作用与异常路径。EXEMPT 必须基于真实范围边界，不能仅以「不是 User Job」排除 Spec Target Scope 内的系统能力。必要的外部依赖按其对目标行为的影响恢复契约，不自动扩大复刻范围；**依赖契约完整性 ≠ 依赖系统内部完整性**。
-
-最终结果必须可以被未参与调查的 Coding Agent 独立消费。是否达到 Replica-Ready，由实际规格充分性和阻塞缺口决定，不能由文档数量、覆盖百分比或结构校验自动认定。
-
-常见目的对应的默认建议（可调整，不是等级或固定流程）：
-
-|用户目的|逆向重点|合理产出|
-|---|---|---|
-|定位一个问题|解释故障所必需的机制与因果链|根因、证据、影响范围|
-|优化局部体验|相关用户路径、状态、依赖与约束|当前行为模型、体验问题|
-|深入理解模块|模块职责、完整状态与行为、上下游系统关系|模块机制与用户路径知识|
-|复刻现有产品|目标范围内的系统行为、完整用户旅程、交互状态、异常与边缘路径|足以指导高保真复刻的实现规格|
-|重构现有产品|目标范围内的完整当前事实、产品约束、关键与边缘路径、现有问题|可支持结构性重新设计的 Reality Baseline 或实现规格|
-
-「先打通核心链路」只适用于探索价值、确定优先级或目标尚未成立时。用户明确要求深入逆向、复刻或结构性重构时，核心路径是起点，不是完成标准；目标范围内的边缘路径、异常、取消/重试/恢复、权限与前置条件、跨模块状态关系属于行为契约，不能用核心路径已覆盖替代完整性。未观察或未验证的部分必须明确标记，不得用推断填补。
-
-重构场景的完整理解不等于完整保留现状：旧产品的边缘行为可能应删除、合并或重新设计，但必须先理解其作用与影响，才能作出有依据的取舍。
-
-深度与持久化是两个独立维度：
-
-| | 轻量调查 | 深度调查 |
-|---|---|---|
-| 不持久化 | 回答局部代码问题 | 完成复杂分析后直接交付结论 |
-| 持久化 | 保存一个关键事实 | 建立完整产品现实知识 |
-
-- 局部诊断允许有界调查和零持久化；系统理解、产品复刻和结构性重构必须在**选定 Scope 内**恢复足以支持目标的行为契约，不得以核心路径已覆盖替代目标范围内的完整性。
-- 用户目的决定所需理解的充分性，不是机械限制调查范围：局部问题的根因涉及跨模块机制时，主动扩大调查，不被「局部任务」标签限制；但调查广度不等于复刻广度，跨边界发现的依赖按依赖契约处理，不自动纳入复刻范围。
-- 完整 `product/` 现实适用于系统级逆向、复刻/迁移/审计、结构性重构或需要 Coverage 与 Design Readiness 的任务；它是调查结论，不是默认前置。单链路/模块级 Replica-Ready 可以直接产出实现规格，不强制初始化全套 Baseline 产物。
-- 仅在知识具有明确持续消费价值时持久化；产物形态由知识性质及消费者决定。
-- 产物必须反映实际证据与理解程度：区分已验证事实、推断与未解决缺口；不得把未覆盖范围描述为完整理解。实现规格可以承载完整开发级语义，但每个重要结论必须可追溯到 canonical `E-*` / `C-*` / `J-*` / `B-*`。
-- Evidence 发生变化后，受影响的实现规格必须重新核对并更新；不声称自动重生。
-- 轻量代码问题不启动产品逆向；当前问题闭合即停，**零写入是合法结果**。这是局部诊断的形态，不是全局默认。
-- 只有真的观察到新事实才记录；不为「完整」补记录。
-- 没有 Baseline 不等于证据不足：直接读 Repo / Runtime / 测试 / 数据快照，标注实际范围。
-- 需要跨会话继续时，把状态放进 canonical 产物，不依赖会话记忆。
-
-## 产品现实的核心不变量
-1. **User Job ≠ 页面/模块**——Route、Tab、Modal、Landing、Settings、History 默认只是 Surface。
-2. **User Job ≠ 内部工作流**——检索、路由、队列、后台阶段、API、自动 Loop 默认属于内部实现；只有迫使用户等待、判断、批准、选择或恢复时才进入 Journey。判定动作：它的 failure、omission、latency、gating 或 output form 是否改变用户可观察或可操作的东西？是 → 进入 Coverage 与 Behavior 调查；否 → 记 `EXEMPT`，理由必须是对本问题的否定回答。
-3. **User Job ≠ 异常/控制机制**——stop/resume/retry/autosave/conflict/error 默认进入 Behavior Contract。
-4. **同层级同粒度**——禁止把端到端结果、一键动作、异常机制并列为同级 Job。
 5. **先还原现状，再谈优化**——不得在本 Skill 内删除步骤、重构流程或提出新版 UX。
 6. **证据先于信心**——「看起来合理」「已经认真检查」「文档很长」都不是证据；证据通道受执行环境限制时如实标注。
 7. **Coverage 必须有边界**——「未发现」只能在明确检查范围内成立；没有覆盖不能写成不存在。
@@ -82,18 +46,8 @@ Scope 与 Rigor 独立组合；同一 Scope 可用不同 Rigor，同一 Rigor �
 9. **调查由高价值问题驱动**——问题必须指向会改变系统 / 体验理解的东西；禁止为了填满 Coverage 表格做无目的扫描。
 10. **人类不做信息搬运**——能直接从系统、代码、测试、文档、历史产物中获取的信息由执行者自行获取。
 11. **Demo 是 Evidence Source，不是 Ground Truth**；一条事实只描述它所对应的那个 Reality facet：`declared / implemented / reachable / executable / experienced`。这是五个 facet，不是五个等级——禁止 ordinal 推导，也禁止四条冒充：Intent exists → 当前产品支持；Source exists → Runtime 可执行；Runtime 可执行 → UX 完整；UI exists → Journey 完整。
-12. **产品现实的 Primitive 只有一套，且都是 `E-*`**——禁止为 Interaction / Presentation 新建 ID namespace；事实类型由 `Kind` 表达。Product Model / Journey / Behavior / Coverage 是 derived view，不得被当作 Product Reality 的全部。Subject 只表示被观察对象的身份（`reference:xxx` / `implementation:xxx` / `self`）。代码机制缓存不使用 `E-*`，也不属于产品现实的 primitive。
-13. **「产品本身不完整 / 部分自洽」是合法的高质量结论**——不要求交出完整自洽的 Product Model；禁止把 Unknown 补成设计、把断开的 Journey 补成正常、把历史残留解释成产品意图。
 
-## Runtime Experience Observation（条件触发，不是固定税）
-Source 与 Runtime 解决不同问题，不互相替代：
-- **必须触发**：任务属 replication / fidelity / clone / reference implementation / 还原已有产品 / 对齐现有可运行系统，或用户已提供 reference runtime、端到端截图、录屏、walkthrough → 每个 P0/P1 Journey 必须含 Runtime Experience Evidence。
-- **按需触发**：Source 无法确定 P0 Journey；Interaction Primitive 不明确；用户入口 / 下一步提示 / 可见反馈无法由已有证据确认；Source 与 docs 冲突。
-- **不强制**：backend / service only；无 UI 且无 reference runtime；用户只需要 capability / system map。
-
-观察点由 User Job 驱动，不由页面数量驱动；禁止全站截图、穷举状态探索。过程如何变化写 `Kind: interaction`，界面结构长什么样写 `Kind: presentation`；不保存像素、全部 spacing、完整 DOM。
-
-## 代码机制知识
+## 轻量 A：代码机制
 代码机制缓存回答「这个行为在哪里实现、谁拥有它、改动会触达什么」。四条不变量：
 1. **只缓存昂贵事实**：一次 grep / symbol / 单文件能恢复的不记。
 2. **事实与 owner 闭合**：证据必须落在能直接证明它的文件 / symbol；跨文件语义用 `- calls →` 指向真实 owner。
@@ -102,12 +56,38 @@ Source 与 Runtime 解决不同问题，不互相替代：
 
 取舍只有一条：**宁可 miss，不可误导。** 缓存可以整目录删除重建；它不是 canonical 产品证据。CRUD、写入门槛与文档结构见 `references/code/intelligence-contract.md`、`references/code/extraction.md`、`references/code/intelligence-format.md`。
 
+收口：当前问题闭合即停；命中不足就回源码，不做负向存在性判断。
+
+## 轻量 B：需求级现状摘要（reality.md）
+**为什么需要它**：设计要从用户实际走过的路径里找痛点，实施计划要知道改动会碰到哪些现有行为，提测审查要知道该回归检查什么。这三件事来自同一次调查；写成一份小而稳定的摘要，下游就不必各自重新调查，也不必读懂整套 `product/` schema。
+
+**产物**：`.engineering/requirements/<req>/reality.md`，格式见 [assets/reality.template.md](assets/reality.template.md)。需求必须显式指定或唯一可推导；有多个候选时列出并请用户选择。
+
+**内容来源**：
+- 已有相关的 `product/` Baseline 时，它是 Baseline 的投影：挑出与本需求相关的部分，引用 `E-*` / `J-*` / `B-*`，不复制正文；投影时仍按当前源码核对你依赖的那几条。
+- 没有 Baseline 时，它就是本次轻量调查的结果：按「轻量 A」的方式追调用链，每条事实给出 `文件#符号` 定位，查起来贵的事实照常写入 `intelligence/`。
+- 两种来源产出的形状相同，下游不需要关心它是怎么来的。
+
+**写好它的标准**：
+- 「用户实际路径」写用户真正看到与经历的：每一步看到什么、要做什么决定、要等多久、可能在哪出错。能运行就运行（运行时证据），不能运行就标明是源码推断——不把「代码里有」写成「用户体验到」（不变量 11）。
+- 「已观察到的问题」只写现象与证据，不写方案；它是交给设计找痛点的原料，不是本 Skill 的设计结论（不变量 5）。
+- 「候选的不能破坏的行为」是候选，由设计或实施计划确认后才进入 Workspace 的 Preserve；本 Skill 不替下游决定什么必须保留，现状也不自动成为约束。
+- 头部写明基于哪个 commit、来源是 Baseline 投影还是直接调查，以及「这是现状，不是期望」。
+- 只写当前需求真正涉及的范围；调查广度服从问题闭合，不为填满模板扩大范围。
+
+**维护**：由本 Skill 写；下游只读。下游使用中发现事实错误或过期，按 `references/evidence-and-correction.md` 回到这里原地修正，不在下游另写一份。
+
+## 深度模式
+需要时，先完整读完 [references/product/deep-mode.md](references/product/deep-mode.md)。调查契约（Scope、Rigor、Replica-Ready）、产品建模不变量、Runtime Experience Observation 与收口规则都在那里，规则与原来完全一致；`scripts/check_baseline.py` 只在深度模式下运行。
+
 ## 工作区
 ```text
 .engineering/
 ├── PROJECT.md                  # 导航，不是状态机
-├── product/                    # canonical 产品现实
+├── context.md                  # 业务上下文（跨需求，见 workspace-and-ownership）
+├── product/                    # canonical 产品现实（深度模式）
 ├── intelligence/               # 可丢弃的代码机制缓存
+├── requirements/<req>/reality.md   # 需求级现状摘要（派生视图）
 └── work/                       # scratch，不得被 canonical 结论引用
 ```
 
@@ -123,23 +103,13 @@ Source 与 Runtime 解决不同问题，不互相替代：
 |需要判断什么值得缓存、owner 落在哪、契约与失败分支怎么抽|[references/code/extraction.md](references/code/extraction.md)|
 |需要写 intelligence 文档：结构、locator / relation / 分片|[references/code/intelligence-format.md](references/code/intelligence-format.md)|
 |抽取质量漂移、owner 归属混乱，或不确定某类事实是否值得缓存|[references/code/worked-example.md](references/code/worked-example.md)|
-|决定持久化完整 product/ 或实现规格时，新建或维护目录、分片与 Index|[references/product/artifact-layout.md](references/product/artifact-layout.md)|
-|决定建立完整 product/ 或做大型逆向时，确定 Inventory、搜索与 Trace 范围|[references/product/reconnaissance-protocol.md](references/product/reconnaissance-protocol.md)|
 |不确定当前问题是否值得调查、需要多少证据、何时停止|[references/product/investigation-questions.md](references/product/investigation-questions.md)|
-|写入 product/ 证据时，使用 E-* / C-* 字段并判断 facet、Channel 与 Boundary|[references/product/evidence-standard.md](references/product/evidence-standard.md)|
-|建立持久 product/ 模型或实现规格时，从证据形成 Product Model / Job / Journey / Behavior / spec view|[references/product/modeling-rules.md](references/product/modeling-rules.md)|
-|建立完整 Baseline 或判断 Replica-Ready 时，确定 Coverage、Design Readiness 与 scope-relative 完成标准|[references/product/coverage-and-readiness.md](references/product/coverage-and-readiness.md)|
 |需要判断工作区归属、写入位置或准备写入|[references/workspace-and-ownership.md](references/workspace-and-ownership.md)|
 |事实被修正、旧结论失效，需要判断影响范围|[references/evidence-and-correction.md](references/evidence-and-correction.md)|
 |涉及决定状态、Binding 或 handoff 语义|[references/delivery-and-handoff.md](references/delivery-and-handoff.md)|
-
-## 收口
-- 代码问题：当前问题闭合即停；命中不足就回源码，不做负向存在性判断。
-- 建立完整 `product/` Baseline 时，Design Readiness 的判据以 `references/product/coverage-and-readiness.md` 为唯一权威；最终完成标准仍是「当前知识是否足以支持用户要求的下一步」。`Baseline Status = COMPLETE` 只表示调查已诚实收口，不表示产品完整。
-- Replica-Ready 是相对于 **Spec Target Scope** 的完成判断：由实现规格充分性与阻塞缺口决定，不由文档数量、覆盖百分比或结构校验自动认定。判据、依赖契约边界与 EXEMPT 语义见 `references/product/coverage-and-readiness.md`。
-- Replica-Ready Judgment 的单一来源是 `spec/INDEX.md`；`BASELINE_INDEX.md` 只引用（若有 spec），不重复签发。Baseline Scope 与 Spec Target Scope 分别由 `BASELINE_INDEX.md` 与 `spec/INDEX.md` 签发；调查范围可以大于复刻范围。
-- 实现规格（`spec/`）是 derived view，可承载开发级语义，但每个重要结论必须可追溯到 `E-*` / `C-*` / `J-*` / `B-*`；Evidence 变化后必须重新核对并更新受影响节，不声称自动重生。
-- 仅在建立完整 Baseline 或产出实现规格时运行 `python scripts/check_baseline.py <product-root>`；它只做确定性结构与引用校验，不证明语义收口、行为覆盖或规格充分性。
+|进入深度模式：完整 Baseline、复刻、迁移、审计、结构性重构、Coverage / Design Readiness / Replica-Ready|先完整读 [references/product/deep-mode.md](references/product/deep-mode.md)，再按其中的 routing 读取|
+|写需求级现状摘要|[assets/reality.template.md](assets/reality.template.md)|
+|业务上下文的写入规则（纠偏记录、准入）|[references/workspace-and-ownership.md](references/workspace-and-ownership.md)|
 
 ## 禁止
 - 禁止把代码调查默认升级成完整产品逆向，或反之用缓存冒充产品证据。

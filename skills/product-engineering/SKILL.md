@@ -45,7 +45,7 @@ description: 当用户需要在产品现实、产品设计、工程实施、提�
 |“为复刻/重构恢复当前产品现实”“把现有行为、状态、异常路径摸清”|`product-reality`|目标是先理解现状；Scope（单链路/模块/域/系统）由用户选定，不默认全产品；复刻/重构要求目标范围内的边缘路径，不以核心路径替代完整性|
 |“目标体验怎么设计”“这个页面/流程应该怎么改”“设计稿需要解释或体验调整”“帮我看看这个需求”“PRD 和设计稿有没有冲突”|`product-design`|任务需要决定或调整目标产品体验；纯按已确定设计稿交付代码默认直接实现|
 |“这个需求怎么实现”“改哪些地方”“给我实施方案”|`implementation-strategy`|目标已足够明确；仍有会改变方案的未知时先澄清或设计|
-|“按计划实现”“按已确定设计稿交付代码”“开始写代码”“把这个简单改动做掉”|直接实现|任务主要目标是交付代码；即使包含复杂技术判断也直接实现，不以机械实现为分界|
+|“按计划实现”“按已确定设计稿交付代码”“开始写代码”“把这个简单改动做掉”|直接实现|任务主要目标是交付代码；即使包含复杂技术判断也直接实现，不以机械实现为分界。有 Workspace 时，先读 `plan.md` 开头的「给执行者」与「验收与保持」|
 |“代码写完了，帮我提测前检查”“看看能不能提测”|`test-readiness-review`|审查 Requirement 的 Expected × Actual × Preserved × Proven；不路由成传统 code review|
 |“处理 AI 评审意见”“这条 MR 评论说得对吗”“误报就关掉”“修完回复并复审”|`ai-code-review`|外部 finding 是待验证发现；没有 PRD / Workspace 也能独立处理|
 |“收集我的 bug”“分析这个缺陷单”“修这个缺陷”“回写 fixed”|`bugfix`|按用户点名的 action 选 channel；单据 URL 只提供上下文|
@@ -53,6 +53,7 @@ description: 当用户需要在产品现实、产品设计、工程实施、提�
 需求单若被用户作为产品输入理解或实施，按真实目标进入 `product-design` 或 `implementation-strategy`，不因来源是缺陷平台自动进入 `bugfix`。
 
 ## 知识消费
+- 先读 `.engineering/context.md`（业务上下文，如有）：业务目标、术语与过去被纠正过的理解，会影响路由判断（例如“这是设计问题还是实现问题”）。没有这个文件不影响路由。
 - 若 `.engineering/` 已存在与当前任务相关的 Current Reality、目标设计、澄清或计划，按需消费，引用 `E-*` / `C-*` / `J-*` / `B-*` / `D-*` / handoff-id 或路径，不重抄长文。
 - 没有相关上游知识时，直接从 PRD、设计稿、Runtime、源码开始；不要为了“流程完整”先跑 Baseline、Clarification 或 Handoff。
 - `product-reality` 的 `intelligence/` 是代码机制缓存，`product/` 是产品证据；两者可以引用同一段源码，不要求统一 schema，也不要求只保留一份。
@@ -64,11 +65,11 @@ description: 当用户需要在产品现实、产品设计、工程实施、提�
 各能力只交接已有 canonical artifact 或明确的执行结果，不新增统一 state、current-stage 文件、current requirement pointer 或中间 artifact：
 
 ```text
-product-reality → Current Reality（直接回答 / intelligence / product）
+product-reality → Current Reality（直接回答 / intelligence / reality.md / product）
 product-design → 产品语义 + 设计决定 +（按需）局部实现 / 验证 +（按需）module handoff
 implementation-strategy → executable Requirement Workspace
 执行者 → implementation + verification evidence
-test-readiness-review → READY_FOR_TEST / BLOCK
+test-readiness-review → READY_FOR_TEST / BLOCK（+ reviews/ 下的审查记录）
 ai-code-review → 本地 verdict + 修复 / 验证证据 + 平台反馈状态
 bugfix → issue dossier / fix / triage result
 ```
@@ -81,6 +82,14 @@ bugfix → issue dossier / fix / triage result
 - `bugfix` 严格停在用户请求的 channel；QA 发现 defect 后，只有用户明确要求操作缺陷单据才进入它。
 - Router 只在用户明确要求或当前目标确实依赖多个能力时组合；完成当前交接后停止，不偷偷推进下一阶段。
 - 路由到 product-reality 时，说明本次调查的目的、Scope、Rigor 与交付假设；默认建议可调整，Scope 显著扩大、Rigor 升级为 Replica-Ready 或目标不明确时让用户参与决策。
+
+“继续推进这个需求”“现在到哪了”这类请求，先运行只读的进度脚本，再结合用户意图判断下一步：
+
+```bash
+python3 <本 Skill 所在目录>/scripts/req_status.py [<requirement-slug>]
+```
+
+它只从现有产物读出事实（澄清、`reality.md`、计划与任务完成数、最近一次审查结论），不写任何状态；输出里的“参考下一步”只是提示，与用户意图冲突时以用户意图为准。脚本不可用时，按下文的最小读取规则自己判断。
 
 Scope 解析遵循：`explicit > uniquely inferable > ambiguous → report / ask`。只有歧义会导致不同 Skill、不同 Requirement/单据 scope 或不同最终行为时才停止；能唯一推断则直接路由。
 

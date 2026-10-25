@@ -3,20 +3,26 @@
 本契约区分产品决定、工程 Binding 与可调整空间；证据和格式本身不产生授权。
 
 ## 1. 决定记录
-一个产品/设计决定至少包含：
+字段按需必填：起保护作用的字段在需要时一个都不能少，其余字段有相关信息时再写，不为填满而填。
 
 ```text
-Decision-ID: D-<n>                 # project 内唯一，可选但推荐
-Statement: <决定本身>
-Status: PROPOSED | ACCEPTED | SUPERSEDED
-Basis: DECISION | EVIDENCE | DERIVATION | DESIGN_JUDGMENT
-Authority: <user / product-owner / design-owner / ...>
-Accepted-At: <date>                # Status=ACCEPTED 时填写
-Scope: <这次接受覆盖到哪里>
-Basis-Ref: <E-* / C-* / 上游决定 / 设计判断>
-Derived-From: <已接受的 D-* / 约束>   # Basis=DERIVATION 时填写
-Supersedes / Superseded-By: <D-*>
+Decision-ID: D-<n>                 # project 内唯一；推荐填写（验收项要引用它）
+Statement: <决定本身>               # 每条都写
+Status: PROPOSED | ACCEPTED | SUPERSEDED   # 每条都写
+Authority: <user / product-owner / design-owner / ...>   # Status=ACCEPTED 时必填
+Accepted-At: <date>                # Status=ACCEPTED 时必填
+Basis: DECISION | EVIDENCE | DERIVATION | DESIGN_JUDGMENT   # Status=ACCEPTED 时必填；PROPOSED 时可选
+Derived-From: <已接受的 D-* / 约束>   # Basis=DERIVATION 时必填，并说明为什么是严格必要的推导
+Scope: <这次接受覆盖到哪里>         # 有相关信息时填写
+Basis-Ref: <E-* / C-* / 上游决定 / 设计判断>   # 有相关信息时填写
+Supersedes / Superseded-By: <D-*>  # 发生替换时填写
 ```
+
+|什么时候|必填|保护的是什么|
+|---|---|---|
+|所有决定|Statement、Status（推荐 Decision-ID）|基本身份|
+|`Status: ACCEPTED`|Authority、Accepted-At、Basis|Agent 不能自己接受自己的提案|
+|`Basis: DERIVATION`|Derived-From + 严格必要的理由|防止把设计含义自动升级为产品要求（见下方 P4' 例）|
 
 **`DERIVED` 不是 Status。** 一个推导出来的结论本身也可能处于 `PROPOSED` / `ACCEPTED` / `SUPERSEDED`。推导只说明它怎么来的，不自动赋予产品权威。
 

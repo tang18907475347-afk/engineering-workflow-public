@@ -159,7 +159,7 @@
 - “这个默认值 / 排序 / 权限是否符合产品预期”；
 - “这个交互是否应该由前端还是后端负责”。
 
-需要时按顺序找：当前 MR 描述 / 关联需求 → `.engineering/requirements/<req>/clarification/` → `.engineering/design/` → PRD / 设计稿 → 用户。找不到就标 `NEEDS_EVIDENCE` 或 `CONFIRMED + DEFER`，不要用“通常产品会……”补成事实。
+需要时按顺序找：当前 MR 描述 / 关联需求 → `.engineering/requirements/<req>/workspace/plan.md` 的「验收与保持」 → `.engineering/requirements/<req>/clarification/` → `.engineering/design/` → `.engineering/context.md` 的业务规则 → PRD / 设计稿 → 用户。找不到就标 `NEEDS_EVIDENCE` 或 `CONFIRMED + DEFER`，不要用“通常产品会……”补成事实。
 
 ## 8. 停止条件
 出现以下情况时停止继续投入，交付当前结论：

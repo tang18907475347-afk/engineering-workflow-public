@@ -24,6 +24,24 @@ description: 用于需求澄清（PRD / 设计稿）、产品语义判断、体�
 
 没有 PRD / 设计稿时，直接从 Current Reality、用户目标与真实约束开始；只有 Product Intent / module purpose 本身 Unknown 时才需要回指，不因缺少 source 而拒绝任务。
 
+开工时先读 `.engineering/context.md`（业务上下文，如有）：业务目标、用户、术语和过去被纠正过的理解都在那里。
+
+## 先定义问题，再设计方案
+**为什么**：设计最贵的返工，往往不是方案不够好，而是解决错了问题——抓住表面症状、平均用力、缺少业务视角。方案写完才发现方向错了，代价最高；出方案之前花一分钟确认问题，代价最低。
+
+需要决定或调整目标体验时，下面四件事是默认起点。简单的局部 polish，或用户已经给出清楚的问题定义时，可以压缩成一两句：
+
+1. **业务定位**：谁、在什么场景下、要完成什么、业务方想要什么结果（尽量对应 `context.md` 的业务目标与指标）。某一项说不清，说明理解还不够：先查 `context.md` 与资料，查不到就放进确认点问，不要编。
+2. **痛点**：用户视角的现象，每条带证据。来源包括 `reality.md` 的「用户实际路径」与「已观察到的问题」、PRD 与用户反馈、历史缺陷、`context.md` 的已知痛点。痛点写现象，不写方案——「缺少批量导入」是方案，「上架 50 个商品要重复填 50 次表单」才是痛点。
+3. **聚焦**：说明为什么先解决这几个，以及本次明确不解决哪些；依据是影响面、频率、严重程度，以及与业务目标的关系。平均用力等于没有重点。
+4. **根因**：追问到能做设计决策的那一层；Diagnosis 仍是推理，不是 FACT（见「判断自由」）。多个现象只有在证据指向同一机制或同一 shared 资产时才合并为一个根因。
+
+方法可以自选。需要现成做法时，可以用 [references/design/problem-definition.md](references/design/problem-definition.md) 的打分与根因分类；你有能达到同样质量的做法时可以不用，说明即可。第一次做问题定义时，先看 [references/design/examples.md](references/design/examples.md) 的正反例来校准判断（用于校准，不是模板）。
+
+**确认点（默认开启）**：问题定义完成、出方案之前，用几行发给用户确认——业务定位、本次重点解决的痛点及其根因、本次不解决的、你不确定的地方（每个不确定处附上你的建议，让用户可以一句话确认）。用户纠正了你对业务的理解时，按 `references/workspace-and-ownership.md` 第 9 节写入 `context.md` 的纠偏记录，再按纠正后的理解重新聚焦。用户说过「不用确认」，或者是简单的局部修改时可以跳过，并在产出中注明「问题定义未经用户确认」。
+
+**缺上游时**：没有 `reality.md`，就自己沿用户路径走一遍（能运行就运行，不能就标明是源码推断）；没有 `context.md`，就从用户原话与资料出发，缺的信息放进确认点。
+
 ## 权威
 当前有效的产品输入（PRD、设计稿、用户明确决定）是**意图权威**；Current Reality 是**证据**，不是目标。模型可以提出目标与设计判断，但不因此拥有替用户确认产品决定的权威。
 
@@ -34,10 +52,11 @@ Current Reality 可来自 `.engineering/product/`、`modules/<id>/`、直接阅�
 每条可能影响工程的决定记录：
 
 ```text
-D-* / Statement
-Status: PROPOSED | ACCEPTED | SUPERSEDED
+D-* / Statement / Status: PROPOSED | ACCEPTED | SUPERSEDED   ← 每条都写
+Authority / Accepted-At / Basis                             ← Status=ACCEPTED 时必填
+Derived-From + 为什么是严格必要的推导                       ← Basis=DERIVATION 时必填
+Scope / Basis-Ref / Supersedes / Superseded-By              ← 有相关信息时再写
 Basis: DECISION | EVIDENCE | DERIVATION | DESIGN_JUDGMENT
-Authority / Accepted-At / Scope / Basis-Ref / Derived-From / Supersedes / Superseded-By
 ```
 
 - 用户/授权人明确拍板：`ACCEPTED` + `Basis: DECISION`；不需要再经过其他 Skill 批准。
@@ -77,9 +96,10 @@ User Goal / Job → User Operating Model → Decision / Information Needs
 
 ## 输出
 按任务需要产出，不设 universal mandatory output：
+- **问题定义**：业务定位、痛点（带证据）、聚焦与不解决项、根因；确认结果（或「未经用户确认」）。需要设计目标体验时写在设计决定集之前；纯澄清任务不需要。
 - **澄清文档**：需求范围、主流程、状态与异常、关键风险与待决；写入 `.engineering/requirements/<req>/clarification/`。适用需要产品/设计/研发/测试共同对齐的任务。已有澄清文档随来源更新时，按 `references/clarification/change-aware-update.md` 增量更新，不默认重新生成全部文档。
 - **设计决定集**：Target Experience / Journey / 架构 / interaction / presentation 决策，每条带依据、取舍与证伪方式。纯 target 态设计到此即止。
-- **实现与验证**（任务要求时）：改动后确认核心任务可完成、关键状态反馈成立、目标 viewport 可用、accessibility 未恶化；声明实际达到的层级 `PASS — CODE / DOM / INTERACTION / VISUAL / NOT VERIFIED`；证据落 `modules/<id>/verification/`。
+- **实现与验证**（任务要求时）：改动后确认核心任务可完成、关键状态反馈成立、目标 viewport 可用、accessibility 未恶化；声明实际达到的层级 `PASS — CODE / DOM / INTERACTION / VISUAL / NOT VERIFIED`；证据落 `modules/<id>/verification/`。没有 Requirement Workspace、由本 Skill 直接完成的局部实现，在设计记录里写一节「验收与保持」（格式同 implementation-strategy 的 Workspace），供 TRR 与 bugfix 引用。
 - **Handoff**（仅存在真实下游消费者、且需要版本追溯时）：`design/module-handoffs/<module-id>/<handoff-id>.md`；内容不可变，Binding 与 Adjustable 分开。简单 UI 修改或同一上下文连续完成的设计+实现不需要快照。
 
 简单任务直接内联，不强制制造文件；不为模板完整度生成 roadmap / alternatives / validation plan。
@@ -110,6 +130,8 @@ User Goal / Job → User Operating Model → Decision / Information Needs
 |质询 PRD / 设计稿时不确定从哪些维度提问|[references/clarification/interrogation.md](references/clarification/interrogation.md)|
 |已有澄清文档需要随来源更新|[references/clarification/change-aware-update.md](references/clarification/change-aware-update.md)|
 |PRD / Figma 采集失败或环境阻断|[references/clarification/environment-boundary.md](references/clarification/environment-boundary.md)|
+|做问题定义时需要现成的打分、聚焦或根因分类方法|[references/design/problem-definition.md](references/design/problem-definition.md)|
+|第一次做问题定义，或拿不准深浅|[references/design/examples.md](references/design/examples.md)|
 |需要判断设计问题的根因、ownership、约束与验证层级|[references/design/design-framework.md](references/design/design-framework.md)|
 |需要形成界面构图或 presentation 模型|[references/design/presentation-synthesis.md](references/design/presentation-synthesis.md)|
 |需要判断工作区归属、写入位置或准备写入|[references/workspace-and-ownership.md](references/workspace-and-ownership.md)|
