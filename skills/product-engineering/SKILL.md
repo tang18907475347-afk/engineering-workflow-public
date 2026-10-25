@@ -98,6 +98,7 @@ Scope 解析遵循：`explicit > uniquely inferable > ambiguous → report / ask
 ## Reference routing
 |当前问题|读|
 |---|---|
+|看不懂某个术语（Status、Basis、Binding、五个面、Scope / Rigor、AC / P 等）|[references/glossary.md](references/glossary.md)|
 |定位 scope 或判断写入边界|[references/workspace-and-ownership.md](references/workspace-and-ownership.md)|
 |上下游知识冲突、需要修正失效事实|[references/evidence-and-correction.md](references/evidence-and-correction.md)|
 |涉及决定状态或 handoff|[references/delivery-and-handoff.md](references/delivery-and-handoff.md)|

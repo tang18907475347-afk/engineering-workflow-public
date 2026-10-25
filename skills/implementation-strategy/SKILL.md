@@ -56,6 +56,7 @@ Workspace 记录当前可执行真相，不是 changelog。当 Repo、有效 Hum
 ## Reference routing
 |当前问题|读|
 |---|---|
+|看不懂某个术语（Status、Basis、Binding、五个面、Scope / Rigor、AC / P 等）|[references/glossary.md](references/glossary.md)|
 |写 Workspace、拆分 Phase / Task 或一次性 brief|[references/workspace-format.md](references/workspace-format.md)|
 |判断共享模型、调查边界、风险与验证|[references/plan-quality.md](references/plan-quality.md)|
 |消费 PRD / 设计稿 / 已接受决定 / handoff|[references/product-inputs.md](references/product-inputs.md)|

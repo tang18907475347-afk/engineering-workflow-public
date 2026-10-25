@@ -62,6 +62,7 @@ Review 不能把实现者在 Workspace、提交说明或历史对话里的“已
 ## Reference routing
 |当前问题|读|
 |---|---|
+|看不懂某个术语（Status、Basis、Binding、五个面、Scope / Rigor、AC / P 等）|[references/glossary.md](references/glossary.md)|
 |Workspace 路径、ownership 或写入边界有疑问|[references/workspace-and-ownership.md](references/workspace-and-ownership.md)|
 |事实冲突、旧结论失效，需要判断证据是否仍有效|[references/evidence-and-correction.md](references/evidence-and-correction.md)|
 |涉及决定状态、Binding 或 handoff 消费|[references/delivery-and-handoff.md](references/delivery-and-handoff.md)|

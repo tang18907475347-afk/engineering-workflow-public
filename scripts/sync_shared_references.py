@@ -27,22 +27,22 @@ from pathlib import Path
 DEPENDENCIES: dict[str, list[str]] = {
     "product-engineering": [
         "workspace-and-ownership.md", "evidence-and-correction.md",
-        "delivery-and-handoff.md"],
+        "delivery-and-handoff.md", "glossary.md"],
     "product-reality": [
         "workspace-and-ownership.md", "evidence-and-correction.md",
-        "delivery-and-handoff.md"],
+        "delivery-and-handoff.md", "glossary.md"],
     "product-design": [
         "workspace-and-ownership.md", "evidence-and-correction.md",
-        "delivery-and-handoff.md"],
+        "delivery-and-handoff.md", "glossary.md"],
     "implementation-strategy": [
         "workspace-and-ownership.md", "evidence-and-correction.md",
-        "delivery-and-handoff.md"],
+        "delivery-and-handoff.md", "glossary.md"],
     "test-readiness-review": [
         "workspace-and-ownership.md", "evidence-and-correction.md",
-        "delivery-and-handoff.md"],
+        "delivery-and-handoff.md", "glossary.md"],
     # 只需要 context.md（业务上下文）与工作区归属规则
-    "bugfix": ["workspace-and-ownership.md"],
-    "ai-code-review": ["workspace-and-ownership.md"],
+    "bugfix": ["workspace-and-ownership.md", "glossary.md"],
+    "ai-code-review": ["workspace-and-ownership.md", "glossary.md"],
 }
 
 AREA = "references"

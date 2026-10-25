@@ -23,6 +23,7 @@
 | D11 | 决定记录字段按需必填（ACCEPTED 时必填 Authority / Accepted-At / Basis；DERIVATION 时必填 Derived-From + 严格必要理由），语义与 Binding 规则不变 | `shared/delivery-and-handoff.md` 第 1 节、`product-design/SKILL.md`、`assets/design.template.md` | 恢复原字段块与表格列 |
 | D12 | 现有方法类内容保持原写法，只在有失败证据处加默认起点（目前只有 D3） | 无 | —— |
 | D13 | skill-architecture 补“模型相对性”：**只起草，不改本插件内的副本**（该能力从独立来源同步） | `docs/proposals/skill-architecture-model-relativity.md`（新） | —— |
+| D14 | 术语速查：每个术语一句白话、何时用到、例子与易混点；文件头声明“以契约为准”，不新增定义 | `shared/glossary.md`（新）及 7 个 skill 的生成副本、各 SKILL.md 的 reference 索引一行、README 一行、同步脚本 | 删除该文件与索引行，撤回同步依赖 |
 
 ## 已经验证的（静态）
 - `scripts/check_plugin.py` 结构校验通过；共享契约副本与源一致。

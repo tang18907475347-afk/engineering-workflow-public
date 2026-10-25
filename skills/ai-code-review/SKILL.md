@@ -276,6 +276,7 @@ python3 <本 Skill 所在目录>/scripts/review.py reply --repo <repo> --mr <id>
 ## Reference routing
 |当前问题|读|
 |---|---|
+|看不懂某个术语（Status、Basis、Binding、五个面、Scope / Rigor、AC / P 等）|[references/glossary.md](references/glossary.md)|
 |review.json 字段、assessment/recommendation、closedFindings、并行 patch、proposalFingerprint、Decision Envelope、HTML 契约|[references/review-artifact.md](references/review-artifact.md)|
 |一条 finding 如何验证、如何区分严重性与决策、误报 / 过期 / 重复如何处理|[references/triage.md](references/triage.md)|
 |需要 MR 平台后端的评论字段、action / reason code、回复与多轮反馈|[references/feedback.md](references/feedback.md)|

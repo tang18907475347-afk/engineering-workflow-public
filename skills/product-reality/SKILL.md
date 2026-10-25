@@ -99,6 +99,7 @@ description: 用于代码机制调查、跨文件业务链路、状态与 owner 
 ## Reference routing
 |当前问题|读|
 |---|---|
+|看不懂某个术语（Status、Basis、Binding、五个面、Scope / Rigor、AC / P 等）|[references/glossary.md](references/glossary.md)|
 |代码行为、owner、调用链、状态写入、失败分支|先按本 SKILL.md 的代码机制规则；缓存 miss 或需要写缓存时再读 [references/code/intelligence-contract.md](references/code/intelligence-contract.md)|
 |需要判断什么值得缓存、owner 落在哪、契约与失败分支怎么抽|[references/code/extraction.md](references/code/extraction.md)|
 |需要写 intelligence 文档：结构、locator / relation / 分片|[references/code/intelligence-format.md](references/code/intelligence-format.md)|

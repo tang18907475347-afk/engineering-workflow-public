@@ -123,6 +123,7 @@ User Goal / Job → User Operating Model → Decision / Information Needs
 ## Reference routing
 |当前问题|读|
 |---|---|
+|看不懂某个术语（Status、Basis、Binding、五个面、Scope / Rigor、AC / P 等）|[references/glossary.md](references/glossary.md)|
 |PRD / 设计稿来源不清、互相冲突，需要判断以什么为准|[references/clarification/source-reading.md](references/clarification/source-reading.md)|
 |需要拉取 PRD / Figma 源料|[references/clarification/acquisition.md](references/clarification/acquisition.md)|
 |要写澄清文档：目录、模块拆分与写法|[references/clarification/output-shape.md](references/clarification/output-shape.md)|

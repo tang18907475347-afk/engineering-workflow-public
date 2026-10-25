@@ -101,6 +101,7 @@ bug_id 直接可用，不需要先拉列表。按叠加的意图分派：
 
 |当前问题|读|
 |---|---|
+|看不懂某个术语（Status、Basis、Binding、五个面、Scope / Rigor、AC / P 等）|[references/glossary.md](references/glossary.md)|
 |用户要采集缺陷、拉取或更新 buglist（三文档状态机 / 卡片协议 / 清洗规则）|[references/collect.md](references/collect.md)|
 |用户要分析某条缺陷、归因或判断根因（因果调查 / 断点恢复 / 归属 / 档位与证据边界）|[references/analyze.md](references/analyze.md)|
 |用户要修复缺陷（方案核验 / 根因范围 / 验证与交付）|[references/fix.md](references/fix.md)|
