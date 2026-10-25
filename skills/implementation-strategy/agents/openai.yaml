@@ -1,0 +1,4 @@
+interface:
+  display_name: "Implementation Strategy"
+  short_description: "先完整承接、再最小化非必要复杂度——产出新窗口可直接开工的自包含 Workspace；Workspace 经 Reconciliation 持续收敛到 delivery-ready 的当前可执行真相"
+  default_prompt: "Use $implementation-strategy to fully absorb the requirement and execution context first, then decide the correct implementation strategy with minimal unnecessary complexity: identify the behavior delta and true owner, bound the change, define correctness evidence from the current repository, and turn confirmed product facts into a self-contained workspace that a fresh coding agent can execute without re-reading the PRD or designs."

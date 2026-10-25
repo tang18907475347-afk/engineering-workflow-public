@@ -1,0 +1,32 @@
+{
+  "name": "product-engineering",
+  "version": "0.9.0",
+  "displayName": "Product Engineering",
+  "description": "统一的产品工程能力：产品现实、产品设计、工程实施、提测审查、AI 评审问题处理与缺陷闭环",
+  "descriptionZh": "统一的产品工程能力：从可信的 Current Reality 与目标设计，到可执行工程计划、独立交付审查、合并前 AI 评审问题处理与缺陷闭环。",
+  "author": {
+    "name": "PLACEHOLDER-AUTHOR"
+  },
+  "homepage": "https://gitlab.example.com/PLACEHOLDER-GROUP/engineering-workflow",
+  "repository": "https://gitlab.example.com/PLACEHOLDER-GROUP/engineering-workflow",
+  "keywords": [
+    "qoder-plugin",
+    "product-engineering",
+    "product-reality",
+    "product-design",
+    "requirement",
+    "implementation",
+    "test-readiness",
+    "ai-code-review",
+    "code-review",
+    "skill-architecture",
+    "bugfix"
+  ],
+  "category": "product-engineering",
+  "tags": [
+    "skill",
+    "product",
+    "engineering"
+  ],
+  "skills": "./skills/"
+}

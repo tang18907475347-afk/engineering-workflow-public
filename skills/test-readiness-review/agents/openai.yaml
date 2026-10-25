@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test Readiness Review"
+  short_description: "独立判断当前 Requirement 是否达到提测条件"
+  default_prompt: "Use $test-readiness-review to independently decide whether the current Requirement is ready for QA."

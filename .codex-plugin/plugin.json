@@ -1,0 +1,27 @@
+{
+  "name": "product-engineering",
+  "version": "0.9.0",
+  "description": "统一的产品工程能力：产品现实、产品设计、工程实施、提测审查、AI 评审问题处理与缺陷闭环",
+  "author": {
+    "name": "PLACEHOLDER-AUTHOR"
+  },
+  "repository": "https://gitlab.example.com/PLACEHOLDER-GROUP/engineering-workflow",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Product Engineering",
+    "shortDescription": "从产品理解到工程交付、评审处理与验证的统一能力",
+    "longDescription": "面向研发任务的统一入口：按需理解当前产品现实（代码机制与产品行为）、澄清需求与设计目标体验、制定工程实施策略、在真实代码中实现、独立判断提测条件、逐条处理合并前的 AI 评审意见，并闭环缺陷；跨能力复用已有事实、决定与验证证据，不强制全量逆向或固定流水线。",
+    "developerName": "PLACEHOLDER-AUTHOR",
+    "category": "Productivity",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "继续推进这个需求，定位已有产品事实、澄清、设计决定和工程计划，并判断下一步。",
+      "基于当前产品现实设计目标体验，并说明哪些决定已接受、哪些仍是提案。",
+      "审查当前 Requirement 是否达到 READY_FOR_TEST，并给出证据边界。",
+      "处理这个 MR 上的 AI 评审意见：先分析并生成 review.html，等我决策后再执行。"
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+.engineering/
+__pycache__/
+*.pyc
+.pytest_cache/
+dist/
+.DS_Store
+
+# 本地样式/验收脚手架与临时产物，不入库
+.work/
+
+# playwright-cli 会话产物
+.playwright-cli/
